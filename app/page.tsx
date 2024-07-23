@@ -4,9 +4,14 @@ import ImageCard from "@/components/image/ImageCard";
 import PrimaryBtn from "../components/buttons/PrimaryBtn";
 import { useRef, useState } from "react";
 import { Image } from "@/interfaces/image";
+import { OpenAiIcon } from "../components/icons/OpenAiIcon";
+import { UnsplashIcon } from "../components/icons/UnsplashIcon";
+import { PexelsIcon } from "../components/icons/PexelsIcon";
+import { PixabayIcon } from "../components/icons/PixabayIcon";
 
 export default function Home() {
   const promptRef = useRef<HTMLInputElement>(null);
+  const [openAiImage, setOpenAiImage] = useState<Image | null>();
   const [images, setImages] = useState<Image[]>([]);
   const [isFetching, setIsFetching] = useState<boolean>(false);
 
@@ -25,6 +30,7 @@ export default function Home() {
         const openAi: Image = {
           src: data.openAi,
           href: data.openAi,
+          platform: { name: "OpenAI", url: "openai.com", svg: <OpenAiIcon /> },
         };
 
         const unsplash: Image[] = data.unsplash.map((d: any) => {
@@ -32,6 +38,15 @@ export default function Home() {
             src: d.urls.regular,
             href: d.links.html,
             alt: d.description,
+            platform: {
+              name: "Unsplash",
+              url: "https://www.unsplash.com",
+              svg: <UnsplashIcon />,
+            },
+            creator: {
+              name: d.user.name,
+              url: d.user.portfolio_url,
+            },
           };
         });
 
@@ -40,6 +55,15 @@ export default function Home() {
             src: d.src.large,
             href: d.url,
             alt: d.alt,
+            platform: {
+              name: "Pexels",
+              url: "https://www.pexels.com",
+              svg: <PexelsIcon />,
+            },
+            creator: {
+              name: d.photographer,
+              url: d.photographer_url,
+            },
           };
         });
 
@@ -47,10 +71,20 @@ export default function Home() {
           return {
             src: d.webformatURL,
             href: d.pageURL,
+            platform: {
+              name: "Pixabay",
+              url: "https://www.pixabay.com",
+              svg: <PixabayIcon />,
+            },
+            creator: {
+              name: d.user,
+              url: d.pageURL,
+            },
           };
         });
 
-        setImages([openAi, ...unsplash, ...pexels, ...pixabay]);
+        setOpenAiImage(openAi);
+        setImages([...unsplash, ...pexels, ...pixabay]);
       } else {
         throw new Error("Failed to fetch images");
       }
@@ -73,6 +107,21 @@ export default function Home() {
         <PrimaryBtn onClick={fetchImages}>Send</PrimaryBtn>
       </div>
 
+      {openAiImage?.src && (
+        <div className="mb-4">
+          <ImageCard
+            src={openAiImage.src}
+            href={openAiImage.href}
+            alt="Open AI generated image"
+            platform={{
+              name: "OpenAI",
+              url: "openai.com",
+              svg: <OpenAiIcon />,
+            }}
+          />
+        </div>
+      )}
+
       {images.length > 0 && (
         <div className="grid grid-cols-3 gap-4">
           {images.map((image) => (
@@ -80,6 +129,15 @@ export default function Home() {
               src={image.src}
               href={image.href}
               alt={image.alt}
+              platform={{
+                name: image.platform?.name ?? "",
+                url: image.platform?.url ?? "",
+                svg: image.platform?.svg,
+              }}
+              creator={{
+                name: image.creator?.name ?? "",
+                url: image.creator?.url ?? "",
+              }}
               key={`image-${image.src}`}
             />
           ))}

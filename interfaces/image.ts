@@ -1,9 +1,12 @@
+import { ReactNode } from "react";
+
 export interface Image {
   src: string;
   href: string;
   platform?: {
     name: string;
     url: string;
+    svg?: ReactNode;
   };
   creator?: {
     name: string;
