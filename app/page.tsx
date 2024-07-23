@@ -19,7 +19,9 @@ export default function Home() {
         )}`
       );
       if (response.ok) {
-        setImages(await response.json());
+        const data = await response.json();
+        // TODO: correctly set states with the json we receive
+        // setImages(data.openAi);
       } else {
         throw new Error("Failed to fetch images");
       }
@@ -29,8 +31,6 @@ export default function Home() {
       setIsFetching(false);
     }
   };
-
-  console.log(images);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
