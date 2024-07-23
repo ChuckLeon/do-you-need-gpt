@@ -15,7 +15,7 @@ export default async function handler(
     : prompt ?? "Random image";
 
   try {
-    const openAiUrl = ""; //await fetchOpenAi(formatedPrompt);
+    const openAiUrl = await fetchOpenAi(formatedPrompt);
     const unsplashImages = await fetchUnsplash(formatedPrompt);
     const pexelsImages = await fetchPexels(formatedPrompt);
     const pixabayImages = await fetchPixabay(formatedPrompt);

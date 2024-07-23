@@ -3,11 +3,12 @@
 import ImageCard from "@/components/image/ImageCard";
 import PrimaryBtn from "../components/buttons/PrimaryBtn";
 import { useRef, useState } from "react";
+import { Image } from "@/interfaces/image";
 
 export default function Home() {
   const promptRef = useRef<HTMLInputElement>(null);
-  const [images, setImages] = useState();
-  const [isFetching, setIsFetching] = useState(false);
+  const [images, setImages] = useState<Image[]>([]);
+  const [isFetching, setIsFetching] = useState<boolean>(false);
 
   const fetchImages = async () => {
     try {
@@ -20,8 +21,36 @@ export default function Home() {
       );
       if (response.ok) {
         const data = await response.json();
-        // TODO: correctly set states with the json we receive
-        // setImages(data.openAi);
+
+        const openAi: Image = {
+          src: data.openAi,
+          href: data.openAi,
+        };
+
+        const unsplash: Image[] = data.unsplash.map((d: any) => {
+          return {
+            src: d.urls.regular,
+            href: d.links.html,
+            alt: d.description,
+          };
+        });
+
+        const pexels: Image[] = data.pexels.map((d: any) => {
+          return {
+            src: d.src.large,
+            href: d.url,
+            alt: d.alt,
+          };
+        });
+
+        const pixabay: Image[] = data.pixabay.map((d: any) => {
+          return {
+            src: d.webformatURL,
+            href: d.pageURL,
+          };
+        });
+
+        setImages([openAi, ...unsplash, ...pexels, ...pixabay]);
       } else {
         throw new Error("Failed to fetch images");
       }
@@ -34,7 +63,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center mb-4">
         <input
           ref={promptRef}
           type="text"
@@ -44,9 +73,16 @@ export default function Home() {
         <PrimaryBtn onClick={fetchImages}>Send</PrimaryBtn>
       </div>
 
-      {images && (
+      {images.length > 0 && (
         <div className="grid grid-cols-3 gap-4">
-          <ImageCard src={images} />
+          {images.map((image) => (
+            <ImageCard
+              src={image.src}
+              href={image.href}
+              alt={image.alt}
+              key={`image-${image.src}`}
+            />
+          ))}
         </div>
       )}
 
