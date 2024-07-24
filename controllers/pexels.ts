@@ -1,3 +1,4 @@
+import { NB_TO_FETCH } from "@/interfaces/image";
 import axios from "axios";
 
 const fetchPexels = async (prompt: string) => {
@@ -5,7 +6,7 @@ const fetchPexels = async (prompt: string) => {
     const response = await axios.get("https://api.pexels.com/v1/search", {
       params: {
         query: prompt,
-        per_page: 6,
+        per_page: NB_TO_FETCH,
       },
       headers: {
         Authorization: process.env.PEXEL_KEY,

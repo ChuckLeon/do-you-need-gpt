@@ -1,3 +1,4 @@
+import { NB_TO_FETCH } from "@/interfaces/image";
 import axios from "axios";
 
 const fetchPixabay = async (prompt: string) => {
@@ -6,7 +7,7 @@ const fetchPixabay = async (prompt: string) => {
       params: {
         key: process.env.PIXABAY_KEY,
         q: prompt,
-        per_page: 6,
+        per_page: NB_TO_FETCH,
         safesearch: "true",
       },
     });

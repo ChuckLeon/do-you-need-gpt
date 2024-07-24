@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
 
+export const NB_TO_FETCH = 12;
+
 export interface Image {
   src: string;
   href: string;

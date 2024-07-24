@@ -1,3 +1,4 @@
+import { NB_TO_FETCH } from "@/interfaces/image";
 import axios from "axios";
 
 const fetchUnsplash = async (prompt: string) => {
@@ -6,7 +7,7 @@ const fetchUnsplash = async (prompt: string) => {
       params: {
         query: prompt,
         client_id: process.env.UNSPLASH_ACCESS_KEY,
-        per_page: 6,
+        per_page: NB_TO_FETCH,
         order_by: "popular",
       },
     });
