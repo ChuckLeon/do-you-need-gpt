@@ -1,13 +1,13 @@
 "use client";
 
 import ImageCard from "@/components/image/ImageCard";
-import PrimaryBtn from "../components/buttons/PrimaryBtn";
 import { useRef, useState } from "react";
 import { Image } from "@/interfaces/image";
 import { OpenAiIcon } from "../components/icons/OpenAiIcon";
 import { UnsplashIcon } from "../components/icons/UnsplashIcon";
 import { PexelsIcon } from "../components/icons/PexelsIcon";
 import { PixabayIcon } from "../components/icons/PixabayIcon";
+import { SkeletonGrid } from "../components/skeleton/SkeletonGrid";
 
 export default function Home() {
   const promptRef = useRef<HTMLInputElement>(null);
@@ -97,14 +97,16 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="flex items-center justify-center mb-4">
+      <div className="flex items-center justify-center mb-4 gap-4">
         <input
           ref={promptRef}
           type="text"
-          className="w-64 px-4 py-2 mr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="input input-bordered input-primary w-full max-w-xs"
           placeholder="Write a prompt"
         />
-        <PrimaryBtn onClick={fetchImages}>Send</PrimaryBtn>
+        <button className="btn btn-primary" onClick={fetchImages}>
+          Send
+        </button>
       </div>
 
       {openAiImage?.src && (
@@ -144,7 +146,7 @@ export default function Home() {
         </div>
       )}
 
-      {isFetching && <p className="text-white">Loading...</p>}
+      {isFetching && <SkeletonGrid />}
     </main>
   );
 }
