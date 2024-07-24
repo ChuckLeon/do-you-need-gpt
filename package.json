@@ -15,7 +15,8 @@
     "openai": "^4.53.0",
     "react": "^18",
     "react-dom": "^18",
-    "react-masonry-css": "^1.0.16"
+    "react-masonry-css": "^1.0.16",
+    "react-waypoint": "^10.3.0"
   },
   "devDependencies": {
     "@types/node": "^20",

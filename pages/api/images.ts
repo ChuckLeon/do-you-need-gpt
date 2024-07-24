@@ -8,17 +8,19 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { prompt } = req.query;
+  const { prompt, page } = req.query;
 
   const formatedPrompt = Array.isArray(prompt)
     ? prompt.join(",")
     : prompt ?? "Random image";
 
+  const formatedPage = Array.isArray(page) ? "1" : page ?? "1";
+
   try {
     const openAiUrl = ""; //await fetchOpenAi(formatedPrompt);
-    const unsplashImages = await fetchUnsplash(formatedPrompt);
-    const pexelsImages = await fetchPexels(formatedPrompt);
-    const pixabayImages = await fetchPixabay(formatedPrompt);
+    const unsplashImages = await fetchUnsplash(formatedPrompt, formatedPage);
+    const pexelsImages = await fetchPexels(formatedPrompt, formatedPage);
+    const pixabayImages = await fetchPixabay(formatedPrompt, formatedPage);
 
     res.status(200).json({
       openAi: openAiUrl,

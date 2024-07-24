@@ -5,10 +5,18 @@ import { OpenAiIcon } from "../components/icons/OpenAiIcon";
 import { SkeletonGrid } from "../components/skeleton/SkeletonGrid";
 import { usePrompts } from "@/hooks/usePrompts";
 import Masonry from "react-masonry-css";
+import { Waypoint } from "react-waypoint";
 
 export default function Home() {
-  const { promptRef, openAiImage, images, isFetching, fetchImages } =
-    usePrompts();
+  const {
+    promptRef,
+    openAiImage,
+    images,
+    isFetching,
+    currentPage,
+    fetchImages,
+    loadMore,
+  } = usePrompts();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -20,13 +28,13 @@ export default function Home() {
           placeholder="Write a prompt"
           autoFocus
         />
-        <button className="btn btn-primary" onClick={fetchImages}>
+        <button className="btn btn-primary" onClick={() => fetchImages()}>
           Send
         </button>
       </div>
 
       {openAiImage?.src && (
-        <div className="mb-4">
+        <div className="mb-4 w-full m-h-[50vh]">
           <ImageCard
             src={openAiImage.src}
             href={openAiImage.href}
@@ -40,36 +48,41 @@ export default function Home() {
         </div>
       )}
 
-      {images.length > 0 ??
-        (!isFetching && (
-          <Masonry
-            breakpointCols={{
-              default: 3,
-              700: 2,
-              500: 1,
+      {images.length > 0 && (
+        <Masonry
+          breakpointCols={{
+            default: 3,
+            700: 2,
+            500: 1,
+          }}
+          className="my-masonry-grid"
+          columnClassName="my-masonry-grid_column"
+        >
+          {images.map((image) => (
+            <ImageCard
+              src={image.src}
+              href={image.href}
+              alt={image.alt}
+              platform={{
+                name: image.platform?.name ?? "",
+                url: image.platform?.url ?? "",
+                svg: image.platform?.svg,
+              }}
+              creator={{
+                name: image.creator?.name ?? "",
+                url: image.creator?.url ?? "",
+              }}
+              key={`image-${image.src}-page-${currentPage}`}
+            />
+          ))}
+          <Waypoint
+            onEnter={() => {
+              loadMore();
             }}
-            className="my-masonry-grid"
-            columnClassName="my-masonry-grid_column"
-          >
-            {images.map((image) => (
-              <ImageCard
-                src={image.src}
-                href={image.href}
-                alt={image.alt}
-                platform={{
-                  name: image.platform?.name ?? "",
-                  url: image.platform?.url ?? "",
-                  svg: image.platform?.svg,
-                }}
-                creator={{
-                  name: image.creator?.name ?? "",
-                  url: image.creator?.url ?? "",
-                }}
-                key={`image-${image.src}`}
-              />
-            ))}
-          </Masonry>
-        ))}
+            fireOnRapidScroll
+          />
+        </Masonry>
+      )}
 
       {isFetching && <SkeletonGrid />}
     </main>

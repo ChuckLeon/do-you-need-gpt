@@ -7,18 +7,20 @@ import { UnsplashIcon } from "@/components/icons/UnsplashIcon";
 
 export const usePrompts = () => {
   const promptRef = useRef<HTMLInputElement>(null);
+
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [openAiImage, setOpenAiImage] = useState<Image | null>();
   const [images, setImages] = useState<Image[]>([]);
   const [isFetching, setIsFetching] = useState<boolean>(false);
 
-  const fetchImages = async () => {
+  const fetchImages = async (page?: number, pushToArray?: boolean) => {
     try {
       setIsFetching(true);
 
       const response = await fetch(
         `/api/images?prompt=${encodeURIComponent(
           promptRef.current?.value ?? ""
-        )}`
+        )}&page=${page ?? currentPage}`
       );
       if (response.ok) {
         const data = await response.json();
@@ -80,7 +82,11 @@ export const usePrompts = () => {
         });
 
         setOpenAiImage(openAi);
-        setImages([...unsplash, ...pexels, ...pixabay]);
+        if (!pushToArray) {
+          setImages([...unsplash, ...pexels, ...pixabay]);
+        } else {
+          setImages((prev) => [...prev, ...unsplash, ...pexels, ...pixabay]);
+        }
       } else {
         throw new Error("Failed to fetch images");
       }
@@ -91,11 +97,20 @@ export const usePrompts = () => {
     }
   };
 
+  const loadMore = () => {
+    const pageToFetch = currentPage + 1;
+    setCurrentPage(pageToFetch);
+
+    fetchImages(pageToFetch, true);
+  };
+
   return {
     promptRef,
     openAiImage,
     images,
     isFetching,
+    currentPage,
     fetchImages,
+    loadMore,
   };
 };
