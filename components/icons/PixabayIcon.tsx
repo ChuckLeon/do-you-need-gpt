@@ -10,8 +10,8 @@ export const PixabayIcon = () => {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M37.848 1.992C37.848 0.892003 36.9559 0 35.856 0H1.992C0.892003 0 0 0.892003 0 1.992V35.856C0 36.956 0.892003 37.8479 1.992 37.8479H35.856C36.9559 37.8479 37.848 36.956 37.848 35.856V1.992Z"
         fill="#191B26"
       />

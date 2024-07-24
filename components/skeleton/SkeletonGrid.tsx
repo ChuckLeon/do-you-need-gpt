@@ -1,18 +1,23 @@
 import React from "react";
+import Masonry from "react-masonry-css";
 
-interface ISkeletonGrid {
-  columns?: number;
-}
-
-export const SkeletonGrid = ({ columns = 3 }: ISkeletonGrid) => {
+export const SkeletonGrid = () => {
   return (
-    <div className={`grid grid-cols-${columns} gap-4`}>
+    <Masonry
+      breakpointCols={{
+        default: 3,
+        700: 2,
+        500: 1,
+      }}
+      className="my-masonry-grid"
+      columnClassName="my-masonry-grid_column"
+    >
       {Array.from({ length: 30 }).map((_, index) => (
         <div
           key={`skeleton-${index}`}
           className="skeleton h-[500px] w-full min-w-[25vw]"
         ></div>
       ))}
-    </div>
+    </Masonry>
   );
 };

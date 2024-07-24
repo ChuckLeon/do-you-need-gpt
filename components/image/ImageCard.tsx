@@ -23,7 +23,7 @@ export default function ImageCard({
   creator,
 }: IImageCard) {
   return (
-    <div className="group relative flex flex-col w-full h-[500px] rounded-xl overflow-hidden hover:cursor-pointer ">
+    <div className="image-card group relative flex flex-col w-full rounded-xl overflow-hidden hover:cursor-pointer ">
       <a href={href} target="_blank" className="w-full h-full">
         <img src={src} className="object-cover h-[100%] w-[100%]" alt={alt} />
 
