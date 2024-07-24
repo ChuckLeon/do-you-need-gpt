@@ -28,7 +28,11 @@ export const usePrompts = () => {
         const openAi: Image = {
           src: data.openAi,
           href: data.openAi,
-          platform: { name: "OpenAI", url: "openai.com", svg: <OpenAiIcon /> },
+          platform: {
+            name: "OpenAI",
+            url: "openai.com",
+            svg: <OpenAiIcon />,
+          },
         };
 
         const unsplash: Image[] = data.unsplash.map((d: any) => {
@@ -81,8 +85,8 @@ export const usePrompts = () => {
           };
         });
 
-        setOpenAiImage(openAi);
         if (!pushToArray) {
+          setOpenAiImage(openAi);
           setImages([...unsplash, ...pexels, ...pixabay]);
         } else {
           setImages((prev) => [...prev, ...unsplash, ...pexels, ...pixabay]);

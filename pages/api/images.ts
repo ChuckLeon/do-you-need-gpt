@@ -17,7 +17,8 @@ export default async function handler(
   const formatedPage = Array.isArray(page) ? "1" : page ?? "1";
 
   try {
-    const openAiUrl = ""; //await fetchOpenAi(formatedPrompt);
+    const openAiUrl = "";
+    //Number(formatedPage) === 1 ? await fetchOpenAi(formatedPrompt) : "";
     const unsplashImages = await fetchUnsplash(formatedPrompt, formatedPage);
     const pexelsImages = await fetchPexels(formatedPrompt, formatedPage);
     const pixabayImages = await fetchPixabay(formatedPrompt, formatedPage);
