@@ -11,13 +11,13 @@ export const Sidebar = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4 py-10 px-6 w-[15vw] ">
-      <h2 className="font-bold">History</h2>
-      <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-4 py-10 px-6 pr-0 w-[15vw] ">
+      <h2 className="font-bold font-mono">History</h2>
+      <div className="flex flex-col gap-6">
         {searches.map((search, i) => (
           <button
             key={`history-${i}`}
-            className="btn btn-ghost w-full justify-start py-2 px-4 min-h-fit h-fit text-accent"
+            className="btn btn-ghost w-full justify-start p-2 -m-2 min-h-fit h-fit"
             onClick={() => onSidebarItemClick(search)}
           >
             {search.searchText}

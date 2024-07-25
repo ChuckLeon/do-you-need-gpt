@@ -9,7 +9,6 @@ import { searchStore } from "@/store/searchStore";
 export const usePrompts = () => {
   const promptRef = useRef<HTMLInputElement>(null);
 
-  //TODO: refactor lots of values into a store
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [openAiImage, setOpenAiImage] = useState<IImage | null>();
   const [isFetching, setIsFetching] = useState<boolean>(false);
@@ -61,7 +60,7 @@ export const usePrompts = () => {
             alt: d.description,
             platform: {
               name: "Unsplash",
-              url: "https://www.unsplash.com",
+              url: "https://www.unsplash.com?utm_source=artvsai&utm_medium=referral",
               svg: <UnsplashIcon />,
             },
             creator: {

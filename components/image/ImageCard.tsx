@@ -36,12 +36,12 @@ export default function ImageCard({
           </a>
         </div>
       )}
-      <div className="absolute bottom-2 right-2 px-2 py-1 rounded-full">
+      <div className="absolute bottom-4 right-4 px-4 py-1 rounded-full bg-white text-xs">
         {creator && platform && (
           <a
-            href={creator?.url}
+            href={creator?.url !== "" ? creator.url : href}
             target="_blank"
-            className="underline text-blue-300"
+            className="text-black"
           >
             {creator?.name}
           </a>
