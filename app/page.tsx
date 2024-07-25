@@ -19,12 +19,17 @@ export default function Home() {
     fetchImages,
     loadMore,
     setImages,
+    setSelectedSearch,
   } = usePrompts();
 
   return (
     <main className="flex h-screen ">
       {searches.length > 0 && (
-        <Sidebar searches={searches} setImages={setImages} />
+        <Sidebar
+          searches={searches}
+          setImages={setImages}
+          setSelectedSearch={setSelectedSearch}
+        />
       )}
 
       <div className="flex flex-col w-full overflow-hidden">
@@ -89,8 +94,16 @@ export default function Home() {
             className="input input-bordered input-primary w-full"
             placeholder="Write a prompt"
             autoFocus
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                fetchImages(promptRef.current?.value);
+              }
+            }}
           />
-          <button className="btn btn-primary" onClick={() => fetchImages()}>
+          <button
+            className="btn btn-primary"
+            onClick={() => fetchImages(promptRef.current?.value)}
+          >
             Send
           </button>
         </div>

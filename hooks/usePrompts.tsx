@@ -8,20 +8,31 @@ import { UnsplashIcon } from "@/components/icons/UnsplashIcon";
 export const usePrompts = () => {
   const promptRef = useRef<HTMLInputElement>(null);
 
+  //TODO: refactor lots of values into a store
   const [searches, setSearches] = useState<ISearch[]>([]);
+  const [selectedSearch, setSelectedSearch] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [openAiImage, setOpenAiImage] = useState<IImage | null>();
   const [images, setImages] = useState<IImage[]>([]);
   const [isFetching, setIsFetching] = useState<boolean>(false);
 
-  const fetchImages = async (page?: number, pushToArray?: boolean) => {
+  const fetchImages = async (
+    text?: string | null,
+    page?: number,
+    pushToArray?: boolean
+  ) => {
     try {
       setIsFetching(true);
 
+      const searchText =
+        text ??
+        searches.find((search) => search.id === selectedSearch)?.searchText ??
+        "";
+
       const response = await fetch(
-        `/api/images?prompt=${encodeURIComponent(
-          promptRef.current?.value ?? ""
-        )}&page=${page ?? currentPage}`
+        `/api/images?prompt=${encodeURIComponent(searchText)}&page=${
+          page ?? currentPage
+        }`
       );
       if (response.ok) {
         const data = await response.json();
@@ -87,19 +98,26 @@ export const usePrompts = () => {
         });
 
         if (!pushToArray) {
+          const newUUID = crypto.randomUUID();
+
           setOpenAiImage(openAi);
           setImages([...unsplash, ...pexels, ...pixabay]);
 
           setSearches((prev) => [
             ...prev,
             {
-              searchText: promptRef.current?.value ?? "",
+              id: newUUID,
+              searchText: searchText,
               results: [...unsplash, ...pexels, ...pixabay],
             },
           ]);
+
+          setSelectedSearch(newUUID);
         } else {
           setImages((prev) => [...prev, ...unsplash, ...pexels, ...pixabay]);
         }
+
+        if (promptRef.current) promptRef.current.value = "";
       } else {
         throw new Error("Failed to fetch images");
       }
@@ -114,7 +132,7 @@ export const usePrompts = () => {
     const pageToFetch = currentPage + 1;
     setCurrentPage(pageToFetch);
 
-    fetchImages(pageToFetch, true);
+    fetchImages(null, pageToFetch, true);
   };
 
   return {
@@ -127,5 +145,6 @@ export const usePrompts = () => {
     fetchImages,
     loadMore,
     setImages,
+    setSelectedSearch,
   };
 };
