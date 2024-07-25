@@ -18,8 +18,6 @@ export default function Home() {
     searches,
     fetchImages,
     loadMore,
-    setImages,
-    setSelectedSearch,
   } = usePrompts();
 
   return (

@@ -1,4 +1,4 @@
-import { IImage, ISearch } from "@/interfaces/image";
+import { ISearch } from "@/interfaces/image";
 import { searchStore } from "@/store/searchStore";
 import React from "react";
 
