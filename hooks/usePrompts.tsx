@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Image } from "@/interfaces/image";
+import { IImage, ISearch } from "@/interfaces/image";
 import { OpenAiIcon } from "@/components/icons/OpenAiIcon";
 import { PexelsIcon } from "@/components/icons/PexelsIcon";
 import { PixabayIcon } from "@/components/icons/PixabayIcon";
@@ -8,9 +8,10 @@ import { UnsplashIcon } from "@/components/icons/UnsplashIcon";
 export const usePrompts = () => {
   const promptRef = useRef<HTMLInputElement>(null);
 
+  const [searches, setSearches] = useState<ISearch[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [openAiImage, setOpenAiImage] = useState<Image | null>();
-  const [images, setImages] = useState<Image[]>([]);
+  const [openAiImage, setOpenAiImage] = useState<IImage | null>();
+  const [images, setImages] = useState<IImage[]>([]);
   const [isFetching, setIsFetching] = useState<boolean>(false);
 
   const fetchImages = async (page?: number, pushToArray?: boolean) => {
@@ -25,7 +26,7 @@ export const usePrompts = () => {
       if (response.ok) {
         const data = await response.json();
 
-        const openAi: Image = {
+        const openAi: IImage = {
           src: data.openAi,
           href: data.openAi,
           platform: {
@@ -35,7 +36,7 @@ export const usePrompts = () => {
           },
         };
 
-        const unsplash: Image[] = data.unsplash.map((d: any) => {
+        const unsplash: IImage[] = data.unsplash.map((d: any) => {
           return {
             src: d.urls.regular,
             href: d.links.html,
@@ -52,7 +53,7 @@ export const usePrompts = () => {
           };
         });
 
-        const pexels: Image[] = data.pexels.map((d: any) => {
+        const pexels: IImage[] = data.pexels.map((d: any) => {
           return {
             src: d.src.large,
             href: d.url,
@@ -69,7 +70,7 @@ export const usePrompts = () => {
           };
         });
 
-        const pixabay: Image[] = data.pixabay.map((d: any) => {
+        const pixabay: IImage[] = data.pixabay.map((d: any) => {
           return {
             src: d.webformatURL,
             href: d.pageURL,
@@ -88,6 +89,14 @@ export const usePrompts = () => {
         if (!pushToArray) {
           setOpenAiImage(openAi);
           setImages([...unsplash, ...pexels, ...pixabay]);
+
+          setSearches((prev) => [
+            ...prev,
+            {
+              searchText: promptRef.current?.value ?? "",
+              results: [...unsplash, ...pexels, ...pixabay],
+            },
+          ]);
         } else {
           setImages((prev) => [...prev, ...unsplash, ...pexels, ...pixabay]);
         }
@@ -114,7 +123,9 @@ export const usePrompts = () => {
     images,
     isFetching,
     currentPage,
+    searches,
     fetchImages,
     loadMore,
+    setImages,
   };
 };

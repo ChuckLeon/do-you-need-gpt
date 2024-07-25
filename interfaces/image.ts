@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 export const NB_TO_FETCH = 12;
 
-export interface Image {
+export interface IImage {
   src: string;
   href: string;
   platform?: {
@@ -15,4 +15,9 @@ export interface Image {
     url: string;
   };
   alt?: string;
+}
+
+export interface ISearch {
+  searchText: string;
+  results: IImage[];
 }

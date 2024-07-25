@@ -27,7 +27,7 @@ export default function ImageCard({
       <a href={href} target="_blank" className="w-full h-full">
         <img src={src} className="object-cover h-[100%] w-[100%]" alt={alt} />
 
-        <div className="absolute top-0 left-0 h-full w-full opacity-0 transition-opacity duration-100 bg-slate-700 bg-opacity-50 z-0 rounded-xl group-hover:opacity-100"></div>
+        <div className="absolute top-0 left-0 h-full w-full opacity-0 transition-opacity duration-100 bg-secondary bg-opacity-40 z-0 rounded-xl group-hover:opacity-100"></div>
       </a>
       {platform?.svg && (
         <div className="absolute top-4 left-4 bg-white bg-opacity-30 rounded-full p-3">
