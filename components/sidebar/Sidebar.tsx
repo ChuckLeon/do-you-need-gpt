@@ -12,7 +12,7 @@ export const Sidebar = () => {
 
   return (
     <div className="flex flex-col gap-4 py-10 px-6 pr-0 w-[15vw] ">
-      <h2 className="font-bold font-mono">History</h2>
+      <h2>History</h2>
       <div className="flex flex-col gap-6">
         {searches.map((search, i) => (
           <button

@@ -25,7 +25,14 @@ export default function Home() {
       {searches.length > 0 && <Sidebar />}
 
       <div className="flex flex-col w-full overflow-hidden">
-        <div className="flex flex-col items-center w-full max-h-[95dvh] p-12 overflow-y-auto">
+        <div className="flex flex-col items-center w-full h-full max-h-[95dvh] p-12 overflow-y-auto">
+          {images.length === 0 && !isFetching && (
+            <div className="m-auto text-center">
+              <h1>Do you need GPT?</h1>
+              <span>{`Let's find out!`}</span>
+            </div>
+          )}
+
           {images.length > 0 && (
             <Masonry
               breakpointCols={{
