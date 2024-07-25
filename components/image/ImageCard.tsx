@@ -36,8 +36,8 @@ export default function ImageCard({
           </a>
         </div>
       )}
-      <div className="absolute bottom-4 right-4 px-4 py-1 rounded-full bg-white text-xs">
-        {creator && platform && (
+      {creator && platform && (
+        <div className="absolute bottom-4 right-4 px-4 py-1 rounded-full bg-white text-xs">
           <a
             href={creator?.url !== "" ? creator.url : href}
             target="_blank"
@@ -45,8 +45,8 @@ export default function ImageCard({
           >
             {creator?.name}
           </a>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

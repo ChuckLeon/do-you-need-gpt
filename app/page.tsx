@@ -26,31 +26,32 @@ export default function Home() {
 
       <div className="flex flex-col w-full overflow-hidden">
         <div className="flex flex-col items-center w-full max-h-[95dvh] p-12 overflow-y-auto">
-          {openAiImage?.src && (
-            <div className="mb-4 w-full m-h-[50vh]">
-              <ImageCard
-                src={openAiImage.src}
-                href={openAiImage.href}
-                alt="Open AI generated image"
-                platform={{
-                  name: "OpenAI",
-                  url: "openai.com",
-                  svg: <OpenAiIcon />,
-                }}
-              />
-            </div>
-          )}
-
           {images.length > 0 && (
             <Masonry
               breakpointCols={{
                 default: 3,
-                700: 2,
-                500: 1,
+                800: 2,
+                600: 1,
               }}
               className="my-masonry-grid"
               columnClassName="my-masonry-grid_column"
             >
+              {openAiImage?.src && (
+                <ImageCard
+                  src={openAiImage.src}
+                  href={openAiImage.href}
+                  alt="Open AI generated image"
+                  platform={{
+                    name: "OpenAI",
+                    url: "openai.com",
+                    svg: <OpenAiIcon />,
+                  }}
+                  creator={{
+                    name: openAiImage.creator?.name ?? "",
+                    url: openAiImage.creator?.url ?? "",
+                  }}
+                />
+              )}
               {images.map((image) => (
                 <ImageCard
                   src={image.src}

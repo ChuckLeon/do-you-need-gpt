@@ -6,8 +6,8 @@ export const SkeletonGrid = () => {
     <Masonry
       breakpointCols={{
         default: 3,
-        700: 2,
-        500: 1,
+        800: 2,
+        600: 1,
       }}
       className="my-masonry-grid"
       columnClassName="my-masonry-grid_column"

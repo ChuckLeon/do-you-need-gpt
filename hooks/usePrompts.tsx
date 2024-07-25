@@ -51,6 +51,10 @@ export const usePrompts = () => {
             url: "openai.com",
             svg: <OpenAiIcon />,
           },
+          creator: {
+            name: "AI generated",
+            url: "",
+          },
         };
 
         const unsplash: IImage[] = data.unsplash.map((d: any) => {
