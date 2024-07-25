@@ -4,17 +4,24 @@ import { OpenAiIcon } from "@/components/icons/OpenAiIcon";
 import { PexelsIcon } from "@/components/icons/PexelsIcon";
 import { PixabayIcon } from "@/components/icons/PixabayIcon";
 import { UnsplashIcon } from "@/components/icons/UnsplashIcon";
+import { searchStore } from "@/store/searchStore";
 
 export const usePrompts = () => {
   const promptRef = useRef<HTMLInputElement>(null);
 
   //TODO: refactor lots of values into a store
-  const [searches, setSearches] = useState<ISearch[]>([]);
-  const [selectedSearch, setSelectedSearch] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [openAiImage, setOpenAiImage] = useState<IImage | null>();
-  const [images, setImages] = useState<IImage[]>([]);
   const [isFetching, setIsFetching] = useState<boolean>(false);
+
+  const {
+    searches,
+    selectedSearch,
+    images,
+    setSearches,
+    setSelectedSearch,
+    setImages,
+  } = searchStore();
 
   const fetchImages = async (
     text?: string | null,
@@ -99,12 +106,13 @@ export const usePrompts = () => {
 
         if (!pushToArray) {
           const newUUID = crypto.randomUUID();
+          const previousSearch = searches;
 
           setOpenAiImage(openAi);
           setImages([...unsplash, ...pexels, ...pixabay]);
 
-          setSearches((prev) => [
-            ...prev,
+          setSearches([
+            ...previousSearch,
             {
               id: newUUID,
               searchText: searchText,
@@ -114,7 +122,8 @@ export const usePrompts = () => {
 
           setSelectedSearch(newUUID);
         } else {
-          setImages((prev) => [...prev, ...unsplash, ...pexels, ...pixabay]);
+          const previousImages = images;
+          setImages([...previousImages, ...unsplash, ...pexels, ...pixabay]);
         }
 
         if (promptRef.current) promptRef.current.value = "";

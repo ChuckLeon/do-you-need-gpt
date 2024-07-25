@@ -1,18 +1,10 @@
 import { IImage, ISearch } from "@/interfaces/image";
-import { UUID } from "crypto";
+import { searchStore } from "@/store/searchStore";
 import React from "react";
 
-interface ISidebar {
-  searches: ISearch[];
-  setImages: (images: IImage[]) => void;
-  setSelectedSearch: (id: string) => void;
-}
+export const Sidebar = () => {
+  const { searches, setImages, setSelectedSearch } = searchStore();
 
-export const Sidebar = ({
-  searches,
-  setImages,
-  setSelectedSearch,
-}: ISidebar) => {
   const onSidebarItemClick = (search: ISearch) => {
     setImages(search.results);
     setSelectedSearch(search.id);

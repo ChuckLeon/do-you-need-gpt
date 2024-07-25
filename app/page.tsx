@@ -24,13 +24,7 @@ export default function Home() {
 
   return (
     <main className="flex h-screen ">
-      {searches.length > 0 && (
-        <Sidebar
-          searches={searches}
-          setImages={setImages}
-          setSelectedSearch={setSelectedSearch}
-        />
-      )}
+      {searches.length > 0 && <Sidebar />}
 
       <div className="flex flex-col w-full overflow-hidden">
         <div className="flex flex-col items-center w-full max-h-[95dvh] p-12 overflow-y-auto">
