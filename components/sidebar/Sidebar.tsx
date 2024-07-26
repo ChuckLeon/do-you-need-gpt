@@ -1,9 +1,11 @@
 import { ISearch } from "@/interfaces/image";
 import { searchStore } from "@/store/searchStore";
+import clsx from "clsx";
 import React from "react";
 
 export const Sidebar = () => {
-  const { searches, setImages, setSelectedSearch } = searchStore();
+  const { searches, setImages, selectedSearch, setSelectedSearch } =
+    searchStore();
 
   const onSidebarItemClick = (search: ISearch) => {
     setImages(search.results);
@@ -13,11 +15,14 @@ export const Sidebar = () => {
   return (
     <div className="flex flex-col gap-4 py-10 px-6 pr-0 w-[15vw] ">
       <h2>History</h2>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-2">
         {searches.map((search, i) => (
           <button
             key={`history-${i}`}
-            className="btn btn-ghost w-full justify-start p-2 -m-2 min-h-fit h-fit"
+            className={clsx(
+              "btn btn-sm btn-ghost w-full justify-start text-left",
+              { "btn-active": search.id === selectedSearch }
+            )}
             onClick={() => onSidebarItemClick(search)}
           >
             {search.searchText}

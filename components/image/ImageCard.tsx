@@ -23,21 +23,25 @@ export default function ImageCard({
   creator,
 }: IImageCard) {
   return (
-    <div className="image-card group relative flex flex-col w-full rounded-xl overflow-hidden hover:cursor-pointer ">
+    <div className="image-card group relative flex flex-col w-full rounded-xl overflow-hidden  hover:cursor-pointer ">
       <a href={href} target="_blank" className="w-full h-full">
-        <img src={src} className="object-cover h-[100%] w-[100%]" alt={alt} />
+        <img
+          src={src}
+          className="object-cover h-[100%] w-[100%] transition-transform group-hover:scale-[102%]"
+          alt={alt}
+        />
 
-        <div className="absolute top-0 left-0 h-full w-full opacity-0 transition-opacity duration-100 bg-secondary bg-opacity-40 z-0 rounded-xl group-hover:opacity-100"></div>
+        <div className="absolute top-0 left-0 h-full w-full opacity-0 transition-opacity bg-accent bg-opacity-40 z-0 rounded-xl group-hover:opacity-100"></div>
       </a>
       {platform?.svg && (
-        <div className="absolute top-4 left-4 bg-white bg-opacity-30 rounded-full p-3">
+        <div className="absolute top-4 left-4 bg-white bg-opacity-30 rounded-full p-3 transition-all hover:bg-opacity-50">
           <a href={platform?.url} target="_blank">
             {platform.svg}
           </a>
         </div>
       )}
       {creator && platform && (
-        <div className="absolute bottom-4 right-4 px-4 py-1 rounded-full bg-white text-xs">
+        <div className="absolute bottom-4 right-4 px-4 py-1 rounded-full bg-white bg-opacity-80 text-xs transition-all hover:bg-opacity-100">
           <a
             href={creator?.url !== "" ? creator.url : href}
             target="_blank"

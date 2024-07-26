@@ -7,6 +7,7 @@ import { usePrompts } from "@/hooks/usePrompts";
 import Masonry from "react-masonry-css";
 import { Waypoint } from "react-waypoint";
 import { Sidebar } from "@/components/sidebar/Sidebar";
+import { SearchIcon } from "@/components/icons/SearchIcon";
 
 export default function Home() {
   const {
@@ -24,8 +25,8 @@ export default function Home() {
     <main className="flex h-screen ">
       {searches.length > 0 && <Sidebar />}
 
-      <div className="flex flex-col w-full overflow-hidden">
-        <div className="flex flex-col items-center w-full h-full max-h-[95dvh] p-12 overflow-y-auto">
+      <div className="relative flex flex-col w-full overflow-hidden">
+        <div className="flex flex-col items-center w-full h-full max-h-full p-12 overflow-y-auto no-scrollbar">
           {images.length === 0 && !isFetching && (
             <div className="m-auto text-center">
               <h1>Do you need GPT?</h1>
@@ -87,25 +88,22 @@ export default function Home() {
 
           {isFetching && <SkeletonGrid />}
         </div>
-        <div className="flex items-center justify-center mt-auto mb-8 gap-4 px-40 w-full z-10">
-          <input
-            ref={promptRef}
-            type="text"
-            className="input input-bordered input-primary w-full"
-            placeholder="Write a prompt"
-            autoFocus
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                fetchImages(promptRef.current?.value);
-              }
-            }}
-          />
-          <button
-            className="btn btn-primary"
-            onClick={() => fetchImages(promptRef.current?.value)}
-          >
-            Send
-          </button>
+        <div className="absolute bottom-0 flex gap-4 px-8 pb-8 w-full z-10 backdrop-blur-sm">
+          <label className="input input-bordered input-primary flex items-center w-full gap-2">
+            <input
+              ref={promptRef}
+              type="text"
+              className="grow"
+              placeholder="Write a prompt"
+              autoFocus
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  fetchImages(promptRef.current?.value);
+                }
+              }}
+            />
+            <SearchIcon />
+          </label>
         </div>
       </div>
     </main>
