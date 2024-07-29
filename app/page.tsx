@@ -17,7 +17,8 @@ export default function Home() {
     isFetching,
     currentPage,
     searches,
-    fetchImages,
+    isFetchingNewSearch,
+    fetchNewSearch,
     loadMore,
   } = usePrompts();
 
@@ -34,7 +35,7 @@ export default function Home() {
             </div>
           )}
 
-          {images.length > 0 && (
+          {images.length > 0 && !isFetchingNewSearch && (
             <Masonry
               breakpointCols={{
                 default: 3,
@@ -98,7 +99,7 @@ export default function Home() {
               autoFocus
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  fetchImages(promptRef.current?.value);
+                  fetchNewSearch(promptRef.current?.value ?? "");
                 }
               }}
             />

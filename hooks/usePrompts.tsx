@@ -12,6 +12,8 @@ export const usePrompts = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [openAiImage, setOpenAiImage] = useState<IImage | null>();
   const [isFetching, setIsFetching] = useState<boolean>(false);
+  const [isFetchingNewSearch, setIsFetchingNewSearch] =
+    useState<boolean>(false);
 
   const {
     searches,
@@ -25,7 +27,7 @@ export const usePrompts = () => {
   const fetchImages = async (
     text?: string | null,
     page?: number,
-    pushToArray?: boolean
+    isNewSearch?: boolean
   ) => {
     try {
       setIsFetching(true);
@@ -107,7 +109,7 @@ export const usePrompts = () => {
           };
         });
 
-        if (!pushToArray) {
+        if (isNewSearch) {
           const newUUID = crypto.randomUUID();
           const previousSearch = searches;
 
@@ -140,11 +142,21 @@ export const usePrompts = () => {
     }
   };
 
-  const loadMore = () => {
+  const fetchNewSearch = async (text: string) => {
+    setCurrentPage(1);
+    setIsFetchingNewSearch(true);
+
+    await fetchImages(text, 1, true);
+    window.scrollTo({ top: 0, behavior: "instant" });
+
+    setIsFetchingNewSearch(false);
+  };
+
+  const loadMore = async () => {
     const pageToFetch = currentPage + 1;
     setCurrentPage(pageToFetch);
 
-    fetchImages(null, pageToFetch, true);
+    await fetchImages(null, pageToFetch, false);
   };
 
   return {
@@ -154,9 +166,10 @@ export const usePrompts = () => {
     isFetching,
     currentPage,
     searches,
-    fetchImages,
+    isFetchingNewSearch,
     loadMore,
     setImages,
     setSelectedSearch,
+    fetchNewSearch,
   };
 };
