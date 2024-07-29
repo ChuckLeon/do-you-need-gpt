@@ -53,3 +53,7 @@
     display: none; /* Chrome, Safari and Opera */
   }
 }
+
+.custom-gradient {
+  background: linear-gradient(to right, #c9ced400, #c9ced4);
+}

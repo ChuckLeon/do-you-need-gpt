@@ -9,8 +9,10 @@ import { Waypoint } from "react-waypoint";
 import { Sidebar } from "@/components/sidebar/Sidebar";
 import { SearchIcon } from "@/components/icons/SearchIcon";
 import { NeedAiIcon } from "@/components/icons/NeedAiIcon";
+import { useTranslations } from "next-intl";
 
 export default function Home() {
+  const t = useTranslations();
   const {
     promptRef,
     openAiImage,
@@ -32,8 +34,8 @@ export default function Home() {
           {images.length === 0 && !isFetching && (
             <div className="m-auto text-center">
               <NeedAiIcon className="m-auto w-[100px] h-[100px]" />
-              <h1>Do you need AI?</h1>
-              <span>{`Let's find out!`}</span>
+              <h1>{t("home_title")}</h1>
+              <span>{t("home_subtitle")}</span>
             </div>
           )}
 
@@ -97,7 +99,7 @@ export default function Home() {
               ref={promptRef}
               type="text"
               className="grow"
-              placeholder="Write a prompt"
+              placeholder={t("searchbar_placeholder")}
               autoFocus
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
