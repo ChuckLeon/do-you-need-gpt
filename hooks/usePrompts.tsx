@@ -67,7 +67,7 @@ export const usePrompts = () => {
             alt: d.description,
             platform: {
               name: "Unsplash",
-              url: "https://www.unsplash.com?utm_source=artvsai&utm_medium=referral",
+              url: "https://www.unsplash.com?utm_source=doyouneedai&utm_medium=referral",
               svg: <UnsplashIcon />,
             },
             creator: {

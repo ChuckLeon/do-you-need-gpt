@@ -8,6 +8,7 @@ import Masonry from "react-masonry-css";
 import { Waypoint } from "react-waypoint";
 import { Sidebar } from "@/components/sidebar/Sidebar";
 import { SearchIcon } from "@/components/icons/SearchIcon";
+import { NeedAiIcon } from "@/components/icons/NeedAiIcon";
 
 export default function Home() {
   const {
@@ -30,7 +31,8 @@ export default function Home() {
         <div className="flex flex-col items-center w-full h-full max-h-full p-12 overflow-y-auto no-scrollbar">
           {images.length === 0 && !isFetching && (
             <div className="m-auto text-center">
-              <h1>Do you need GPT?</h1>
+              <NeedAiIcon className="m-auto w-[100px] h-[100px]" />
+              <h1>Do you need AI?</h1>
               <span>{`Let's find out!`}</span>
             </div>
           )}
