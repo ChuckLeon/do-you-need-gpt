@@ -4,10 +4,16 @@ import clsx from "clsx";
 import React from "react";
 
 export const Sidebar = () => {
-  const { searches, setImages, selectedSearch, setSelectedSearch } =
-    searchStore();
+  const {
+    searches,
+    setImages,
+    selectedSearch,
+    setSelectedSearch,
+    setCurrentPage,
+  } = searchStore();
 
   const onSidebarItemClick = (search: ISearch) => {
+    setCurrentPage(1);
     setImages(search.results);
     setSelectedSearch(search.id);
   };

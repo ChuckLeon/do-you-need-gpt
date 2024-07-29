@@ -9,7 +9,6 @@ import { searchStore } from "@/store/searchStore";
 export const usePrompts = () => {
   const promptRef = useRef<HTMLInputElement>(null);
 
-  const [currentPage, setCurrentPage] = useState<number>(1);
   const [openAiImage, setOpenAiImage] = useState<IImage | null>();
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [isFetchingNewSearch, setIsFetchingNewSearch] =
@@ -19,9 +18,11 @@ export const usePrompts = () => {
     searches,
     selectedSearch,
     images,
+    currentPage,
     setSearches,
     setSelectedSearch,
     setImages,
+    setCurrentPage,
   } = searchStore();
 
   const fetchImages = async (
