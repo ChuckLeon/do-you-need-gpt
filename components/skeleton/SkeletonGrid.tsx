@@ -9,13 +9,13 @@ export const SkeletonGrid = () => {
         800: 2,
         600: 1,
       }}
-      className="my-masonry-grid"
-      columnClassName="my-masonry-grid_column"
+      className="masonry"
+      columnClassName="masonry_column"
     >
       {Array.from({ length: 30 }).map((_, index) => (
         <div
           key={`skeleton-${index}`}
-          className="skeleton h-[500px] w-full min-w-[25vw]"
+          className="skeleton h-[350px] w-full min-w-[25vw]"
         ></div>
       ))}
     </Masonry>

@@ -1,0 +1,16 @@
+/* Generic class to remove scrollbar */
+.no-scrollbar {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  -webkit-overflow-scrolling: touch;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+}
+
+.custom-gradient {
+  background: linear-gradient(to right, #c9ced400, #c9ced4);
+}
