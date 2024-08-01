@@ -10,6 +10,7 @@ import { Sidebar } from "@/components/sidebar/Sidebar";
 import { SearchIcon } from "@/components/icons/SearchIcon";
 import { NeedAiIcon } from "@/components/icons/NeedAiIcon";
 import { useTranslations } from "next-intl";
+import LoginBtn from "@/components/loginBtn/LoginBtn";
 
 export default function Home() {
   const t = useTranslations();
@@ -26,7 +27,7 @@ export default function Home() {
   } = usePrompts();
 
   return (
-    <main className="flex h-screen ">
+    <main className="flex h-screen">
       {searches.length > 0 && <Sidebar />}
 
       <div className="relative flex flex-col w-full overflow-hidden">
@@ -116,6 +117,8 @@ export default function Home() {
           </label>
         </div>
       </div>
+
+      <LoginBtn />
     </main>
   );
 }

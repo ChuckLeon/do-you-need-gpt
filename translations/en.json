@@ -2,5 +2,10 @@
   "home_title": "Do you need AI?",
   "home_subtitle": "Let's find out!",
   "searchbar_placeholder": "Try sending a prompt!",
-  "sidebar_title": "History"
+  "sidebar_title": "History",
+  "login_title": "Login",
+  "login_email": "Email",
+  "login_password": "Password",
+  "logout_title": "Logout",
+  "signup_title": "Sign up"
 }
