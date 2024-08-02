@@ -7,5 +7,7 @@
   "login_email": "Email",
   "login_password": "Password",
   "logout_title": "Logout",
-  "signup_title": "Sign up"
+  "signup_title": "Sign up",
+  "page_not_found": "The page your trying to reach does not exist",
+  "return_text": "Return"
 }

@@ -17,9 +17,9 @@ export async function login(formData: FormData) {
 
   const { error } = await supabase.auth.signInWithPassword(data);
 
-  // TODO: change to display error message in form
   if (error) {
-    redirect("/error");
+    // TODO: change to display error message in form
+    console.error(error);
   }
 
   revalidatePath("/", "layout");
@@ -31,18 +31,18 @@ export async function signup(formData: FormData) {
 
   // type-casting here for convenience
   // in practice, you should validate your inputs
-  const data = {
+  const { data, error } = await supabase.auth.signUp({
     email: formData.get("email") as string,
     password: formData.get("password") as string,
-  };
+  });
 
-  const { error } = await supabase.auth.signUp(data);
+  console.log(data, error);
 
-  // TODO: change to display error message in form
   if (error) {
-    redirect("/error");
+    // TODO: change to display error message in form
+    console.error(error);
+  } else {
+    revalidatePath("/", "layout");
+    redirect("/");
   }
-
-  revalidatePath("/", "layout");
-  redirect("/");
 }
