@@ -39,7 +39,11 @@ export const Sidebar = () => {
             onClick={() => onSidebarItemClick(search)}
           >
             {search.searchText}
-            <div className="absolute top-0 right-0 w-8 h-full custom-gradient"></div>
+            <div
+              className={clsx("absolute top-0 right-0 w-8 h-full", {
+                "custom-gradient": search.id === selectedSearch,
+              })}
+            ></div>
           </button>
         ))}
       </div>
