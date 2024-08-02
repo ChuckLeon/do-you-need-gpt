@@ -8,7 +8,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Do you need AI?",
+  title: "Do you need GPT?",
   description: "App to discover human generated app instead of crappy AI stuff",
 };
 
