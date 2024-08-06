@@ -25,7 +25,7 @@ export default function Home() {
   } = usePrompts();
 
   return (
-    <main className="flex h-screen">
+    <main className="flex h-[100dvh]">
       <Sidebar />
 
       <div className="relative flex flex-col w-full overflow-hidden">

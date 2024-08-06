@@ -8,7 +8,7 @@ export default function LoginPage() {
   // TODO: add loading state
 
   return (
-    <div className="flex flex-col justify-center p-12 m-auto min-h-screen max-w-screen-md gap-4">
+    <div className="flex flex-col justify-center p-12 m-auto min-h-[100dvh] max-w-screen-md gap-4">
       <NeedAiIcon className="mx-auto w-[100px] h-[100px]" />
       <form className="flex flex-col gap-4">
         <label htmlFor="email">{t("login_email")}</label>
