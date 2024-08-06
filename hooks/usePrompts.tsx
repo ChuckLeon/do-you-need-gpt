@@ -148,7 +148,9 @@ export const usePrompts = () => {
     setIsFetchingNewSearch(true);
 
     await fetchImages(text, 1, true);
-    window.scrollTo({ top: 0, behavior: "instant" });
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
 
     setIsFetchingNewSearch(false);
   };
