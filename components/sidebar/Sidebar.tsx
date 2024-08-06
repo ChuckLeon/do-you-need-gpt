@@ -8,11 +8,14 @@ import { NeedAiIcon } from "../icons/NeedAiIcon";
 import { useTranslations } from "next-intl";
 import LoginBtn from "../loginBtn/LoginBtn";
 import { PanelIcon } from "../icons/PanelIcon";
+import { MOBILE_BREAKPOINT } from "@/utils/constants";
+import useResize from "@/hooks/useResize";
 
 import "./sidebar.scss";
 
 export const Sidebar = () => {
   const t = useTranslations();
+  const { width } = useResize();
 
   const {
     searches,
@@ -28,7 +31,12 @@ export const Sidebar = () => {
     setSelectedSearch(search.id);
   };
 
-  const [sidebarIsOpen, setSidebarIsOpen] = useState<boolean>(false);
+  const isMobile = useMemo(() => width < MOBILE_BREAKPOINT, [width]);
+  const [sidebarIsOpen, setSidebarIsOpen] = useState<boolean>(!isMobile);
+
+  useEffect(() => {
+    setSidebarIsOpen(!isMobile);
+  }, [isMobile]);
 
   return (
     <>

@@ -7,8 +7,8 @@ type WindowSize = {
 
 const useResize = (delay: number = 75): WindowSize => {
   const [windowSize, setWindowSize] = useState<WindowSize>({
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: 0,
+    height: 0,
   });
 
   useEffect(() => {
@@ -25,6 +25,7 @@ const useResize = (delay: number = 75): WindowSize => {
       }, delay);
     };
 
+    handleResize();
     window.addEventListener("resize", handleResize);
 
     return () => {

@@ -16,7 +16,7 @@ export const SkeletonGrid = () => {
       {Array.from({ length: 30 }).map((_, index) => (
         <div
           key={`skeleton-${index}`}
-          className="skeleton h-[250px] w-[40vw] md:h-[300px] md:w-[18vw] md:min-w-[200px]"
+          className="skeleton h-[250px] w-[40vw] md:h-[300px] md:w-[18%] md:min-w-[200px]"
         ></div>
       ))}
     </Masonry>
