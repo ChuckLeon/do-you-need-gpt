@@ -8,18 +8,18 @@ const LoginBtn = () => {
   const t = useTranslations();
   const { user, signOut } = useAuth();
 
+  if (user) {
+    return (
+      <button className="btn btn-primary" onClick={signOut}>
+        {t("logout_title")}
+      </button>
+    );
+  }
+
   return (
-    <div className="fixed top-0 right-0">
-      {user ? (
-        <button className="btn btn-ghost" onClick={signOut}>
-          {t("logout_title")}
-        </button>
-      ) : (
-        <Link className="btn btn-ghost" href={"/login"}>
-          {t("login_title")}
-        </Link>
-      )}
-    </div>
+    <Link className="btn btn-primary" href={"/login"}>
+      {t("login_title")}
+    </Link>
   );
 };
 

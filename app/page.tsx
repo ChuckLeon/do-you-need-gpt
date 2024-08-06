@@ -10,7 +10,6 @@ import { Sidebar } from "@/components/sidebar/Sidebar";
 import { SearchIcon } from "@/components/icons/SearchIcon";
 import { NeedAiIcon } from "@/components/icons/NeedAiIcon";
 import { useTranslations } from "next-intl";
-import LoginBtn from "@/components/loginBtn/LoginBtn";
 
 export default function Home() {
   const t = useTranslations();
@@ -20,7 +19,6 @@ export default function Home() {
     images,
     isFetching,
     currentPage,
-    searches,
     isFetchingNewSearch,
     fetchNewSearch,
     loadMore,
@@ -28,10 +26,10 @@ export default function Home() {
 
   return (
     <main className="flex h-screen">
-      {searches.length > 0 && <Sidebar />}
+      <Sidebar />
 
       <div className="relative flex flex-col w-full overflow-hidden">
-        <div className="flex flex-col items-center w-full h-full max-h-full p-12 pb-32 overflow-y-auto no-scrollbar">
+        <div className="flex flex-col items-center w-full h-full max-h-full p-4 pb-32 overflow-y-auto no-scrollbar md:p-12">
           {images.length === 0 && !isFetching && (
             <div className="m-auto text-center">
               <NeedAiIcon className="m-auto w-[100px] h-[100px]" />
@@ -104,7 +102,7 @@ export default function Home() {
             <input
               ref={promptRef}
               type="text"
-              className="grow"
+              className="grow outline-none"
               placeholder={t("searchbar_placeholder")}
               autoFocus
               onKeyDown={(e) => {
@@ -117,8 +115,6 @@ export default function Home() {
           </label>
         </div>
       </div>
-
-      <LoginBtn />
     </main>
   );
 }
