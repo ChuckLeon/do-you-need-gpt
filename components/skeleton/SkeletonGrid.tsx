@@ -5,9 +5,10 @@ export const SkeletonGrid = () => {
   return (
     <Masonry
       breakpointCols={{
-        default: 3,
-        800: 2,
-        600: 1,
+        default: 5,
+        1440: 4,
+        1080: 3,
+        768: 2,
       }}
       className="masonry"
       columnClassName="masonry_column"
@@ -15,7 +16,7 @@ export const SkeletonGrid = () => {
       {Array.from({ length: 30 }).map((_, index) => (
         <div
           key={`skeleton-${index}`}
-          className="skeleton h-[350px] w-full min-w-[25vw]"
+          className="skeleton h-[250px] w-[40vw] md:h-[300px] md:w-full md:min-w-[200px]"
         ></div>
       ))}
     </Masonry>

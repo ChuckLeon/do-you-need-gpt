@@ -37,14 +37,14 @@ export default function Home() {
               <span>{t("home_subtitle")}</span>
             </div>
           )}
-
           {images.length > 0 && !isFetchingNewSearch && (
             <>
               <Masonry
                 breakpointCols={{
-                  default: 3,
-                  800: 2,
-                  600: 1,
+                  default: 5,
+                  1440: 4,
+                  1080: 3,
+                  768: 2,
                 }}
                 className="masonry"
                 columnClassName="masonry_column"
@@ -94,10 +94,9 @@ export default function Home() {
               )}
             </>
           )}
-
           {isFetchingNewSearch && <SkeletonGrid />}
         </div>
-        <div className="absolute bottom-0 flex gap-4 px-8 pb-8 w-full z-10 backdrop-blur-sm">
+        <div className="absolute bottom-0 flex gap-4 px-2 pb-4 w-full z-10 backdrop-blur-sm md:px-8 md:pb-8">
           <label className="input input-bordered input-primary flex items-center w-full gap-2">
             <input
               ref={promptRef}

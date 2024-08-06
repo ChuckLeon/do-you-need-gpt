@@ -9,7 +9,7 @@ import { PanelIcon } from "../icons/PanelIcon";
 import { MOBILE_BREAKPOINT } from "@/utils/constants";
 import useResize from "@/hooks/useResize";
 
-import "./sidebar.css";
+import "./sidebar.scss";
 
 export const Sidebar = () => {
   const t = useTranslations();
@@ -36,67 +36,57 @@ export const Sidebar = () => {
     setSidebarIsOpen(!isMobile);
   }, [isMobile]);
 
-  if (!sidebarIsOpen) {
-    return (
+  return (
+    <>
       <button
-        className="fixed top-4 left-4 p-1 btn btn-sm btn-circle z-[9999] md:top-12 md:left-12"
+        className={clsx("sidebar-btn", { hide: sidebarIsOpen })}
         onClick={() => setSidebarIsOpen((prev) => !prev)}
       >
         <PanelIcon />
       </button>
-    );
-  }
-
-  return (
-    <div
-      className={clsx(
-        "sidebar",
-        { hidden: !sidebarIsOpen },
-        { relative: !isMobile },
-        { open: isMobile && sidebarIsOpen }
-      )}
-    >
-      <div className="flex justify-between">
-        <div className="flex items-center">
-          <NeedAiIcon />
-          <h2>{t("sidebar_title")}</h2>
-        </div>
-        <button
-          className="p-1 btn btn-sm btn-circle"
-          onClick={() => setSidebarIsOpen((prev) => !prev)}
-        >
-          <PanelIcon />
-        </button>
-      </div>
-      <div className="flex flex-col justify-between h-full">
-        <div className="flex flex-col gap-2">
-          {searches.map((search, i) => (
-            <button
-              key={`history-${i}`}
-              className={clsx(
-                "btn btn-sm btn-ghost relative w-full justify-start text-left overflow-hidden whitespace-nowrap",
-                { "btn-active": search.id === selectedSearch }
-              )}
-              onClick={() => onSidebarItemClick(search)}
-            >
-              {search.searchText}
-              <div
-                className={clsx("absolute top-0 right-0 w-8 h-full", {
-                  "custom-gradient": search.id === selectedSearch,
-                })}
-              ></div>
-            </button>
-          ))}
-        </div>
-        {searches.length === 0 && (
-          <div className="flex flex-col h-full">
-            <p className="m-auto text-xs text-center">
-              {t("sidebar_no_search")}
-            </p>
+      <div className={clsx("sidebar", { open: sidebarIsOpen })}>
+        <div className="flex justify-between">
+          <div className="flex items-center">
+            <NeedAiIcon />
+            <h2>{t("sidebar_title")}</h2>
           </div>
-        )}
-        <LoginBtn />
+          <button
+            className="p-1 btn btn-sm btn-circle"
+            onClick={() => setSidebarIsOpen((prev) => !prev)}
+          >
+            <PanelIcon />
+          </button>
+        </div>
+        <div className="flex flex-col justify-between h-full">
+          <div className="flex flex-col gap-2">
+            {searches.map((search, i) => (
+              <button
+                key={`history-${i}`}
+                className={clsx(
+                  "btn btn-sm btn-ghost relative w-full justify-start text-left overflow-hidden whitespace-nowrap",
+                  { "btn-active": search.id === selectedSearch }
+                )}
+                onClick={() => onSidebarItemClick(search)}
+              >
+                {search.searchText}
+                <div
+                  className={clsx("absolute top-0 right-0 w-8 h-full", {
+                    "custom-gradient": search.id === selectedSearch,
+                  })}
+                ></div>
+              </button>
+            ))}
+          </div>
+          {searches.length === 0 && (
+            <div className="flex flex-col h-full">
+              <p className="m-auto text-xs text-center">
+                {t("sidebar_no_search")}
+              </p>
+            </div>
+          )}
+          <LoginBtn />
+        </div>
       </div>
-    </div>
+    </>
   );
 };

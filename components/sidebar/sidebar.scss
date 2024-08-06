@@ -1,0 +1,50 @@
+.sidebar {
+  display: none;
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  width: 75%;
+  height: calc(100% - 1rem);
+  gap: 1rem;
+  padding: 1rem;
+  flex-direction: column;
+  z-index: 9999;
+  @apply bg-neutral-content rounded-xl;
+
+  &.open {
+    display: flex;
+  }
+
+  @media (min-width: 768px) {
+    position: static;
+    width: 20%;
+    height: auto;
+    min-width: 12rem;
+    margin: 3rem 0 1.5rem 0.75rem;
+  }
+}
+
+.sidebar-btn {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  padding: 0.25rem;
+  z-index: 9999;
+  transition: background-color 150ms ease-in-out;
+  @apply bg-neutral-content rounded-full;
+
+  &:hover {
+    @apply bg-base-100;
+  }
+
+  &.hide {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    top: 3rem;
+    left: 3rem;
+  }
+}
