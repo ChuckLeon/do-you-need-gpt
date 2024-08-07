@@ -1,7 +1,6 @@
-import { UUID } from "crypto";
 import { ReactNode } from "react";
 
-export const NB_TO_FETCH = 12;
+export const NB_TO_FETCH = 24;
 
 export interface IImage {
   src: string;

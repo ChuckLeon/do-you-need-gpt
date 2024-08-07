@@ -29,6 +29,7 @@ export default function ImageCard({
           src={src}
           className="object-cover h-[100%] w-[100%] transition-transform group-hover:scale-[102%]"
           alt={alt}
+          loading="lazy"
         />
 
         <div className="absolute top-0 left-0 h-full w-full opacity-0 transition-opacity bg-accent bg-opacity-40 z-0 rounded-xl group-hover:opacity-100"></div>
