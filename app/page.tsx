@@ -11,6 +11,7 @@ import { SearchIcon } from "@/components/icons/SearchIcon";
 import { NeedAiIcon } from "@/components/icons/NeedAiIcon";
 import { useTranslations } from "next-intl";
 import clsx from "clsx";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Home() {
   const t = useTranslations();
@@ -24,6 +25,7 @@ export default function Home() {
     fetchNewSearch,
     loadMore,
   } = usePrompts();
+  useAuth();
 
   return (
     <main className="flex h-[100dvh]">

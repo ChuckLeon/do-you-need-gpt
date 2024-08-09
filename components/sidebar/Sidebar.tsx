@@ -12,6 +12,7 @@ import { MOBILE_BREAKPOINT } from "@/utils/constants";
 import useResize from "@/hooks/useResize";
 
 import "./sidebar.scss";
+import { userStore } from "@/store/userStore";
 
 export const Sidebar = () => {
   const t = useTranslations();
@@ -24,6 +25,8 @@ export const Sidebar = () => {
     setSelectedSearch,
     setCurrentPage,
   } = searchStore();
+
+  const { user } = userStore();
 
   const onSidebarItemClick = (search: ISearch) => {
     setCurrentPage(1);
@@ -84,6 +87,14 @@ export const Sidebar = () => {
               <p className="m-auto text-xs text-center">
                 {t("sidebar_no_search")}
               </p>
+            </div>
+          )}
+          {user && (
+            <div className="flex flex-col break-all mb-2">
+              <span className="font-bold">
+                {t("sidebar_credits", { count: user?.credits })}
+              </span>
+              <span className="text-xs">{user.email}</span>
             </div>
           )}
           <LoginBtn />

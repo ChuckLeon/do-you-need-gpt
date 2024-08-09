@@ -10,5 +10,6 @@
   "signup_title": "Sign up",
   "page_not_found": "The page your trying to reach does not exist",
   "return_text": "Return",
-  "sidebar_no_search": "Search history will display here"
+  "sidebar_no_search": "Search history will display here",
+  "sidebar_credits": "AI credits: {count}"
 }

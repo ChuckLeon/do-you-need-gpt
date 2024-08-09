@@ -1,12 +1,14 @@
 "use client";
 
 import { useAuth } from "@/hooks/useAuth";
+import { userStore } from "@/store/userStore";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 
 const LoginBtn = () => {
   const t = useTranslations();
-  const { user, signOut } = useAuth();
+  const { signOut } = useAuth();
+  const { user } = userStore();
 
   if (user) {
     return (

@@ -31,18 +31,16 @@ export async function signup(formData: FormData) {
 
   // type-casting here for convenience
   // in practice, you should validate your inputs
-  const { data, error } = await supabase.auth.signUp({
+  const { error } = await supabase.auth.signUp({
     email: formData.get("email") as string,
     password: formData.get("password") as string,
   });
 
-  console.log(data, error);
-
   if (error) {
     // TODO: change to display error message in form
     console.error(error);
-  } else {
-    revalidatePath("/", "layout");
-    redirect("/");
   }
+
+  revalidatePath("/", "layout");
+  redirect("/");
 }

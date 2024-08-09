@@ -13,16 +13,12 @@ export async function GET(request: NextRequest) {
   if (token_hash && type) {
     const supabase = createClient();
 
-    const { data, error } = await supabase.auth.verifyOtp({
+    const { error } = await supabase.auth.verifyOtp({
       type,
       token_hash,
     });
     if (!error) {
       // redirect user to specified redirect URL or root of app
-
-      if (data.user) {
-        await supabase.from("users").insert({ auth_id: data.user.id });
-      }
       redirect(next);
     }
   }
