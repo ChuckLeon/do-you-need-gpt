@@ -26,6 +26,7 @@ export default function Home() {
     isFetchingNewSearch,
     fetchNewSearch,
     loadMore,
+    fetchAiImage,
   } = usePrompts();
   const { getUser } = useAuth();
 
@@ -114,12 +115,12 @@ export default function Home() {
 
           {isFetchingNewSearch && <SkeletonGrid />}
         </div>
-        <div className="absolute bottom-0 flex gap-4 px-2 pb-4 w-full z-10 backdrop-blur-sm md:px-8 md:pb-8">
-          <label className="input input-bordered input-primary flex items-center w-full gap-2">
+        <div className="absolute bottom-0 flex gap-4 px-2 pb-4 w-full z-10 backdrop-blur-sm md:px-6 md:pb-8">
+          <label className="relative input input-bordered input-primary flex items-center w-full gap-2 focus-within:outline-offset-0 focus-within:outline-1">
             <input
               ref={promptRef}
               type="text"
-              className="grow outline-none"
+              className="grow"
               placeholder={t("searchbar_placeholder")}
               autoFocus
               onKeyDown={(e) => {
@@ -128,9 +129,22 @@ export default function Home() {
                 }
               }}
             />
-            <SearchIcon />
+            <button
+              className="btn btn-primary btn-sm "
+              onClick={() => fetchNewSearch(promptRef.current?.value ?? "")}
+            >
+              {t("searchbar_button")}
+            </button>
           </label>
         </div>
+        {images.length > 0 && user && (
+          <button
+            className="absolute bottom-24 left-[50%] translate-x-[-50%] btn btn-info btn-sm shadow-2xl"
+            onClick={() => fetchAiImage(promptRef.current?.value ?? null)}
+          >
+            {t("generate_ai_btn")}
+          </button>
+        )}
       </div>
     </main>
   );

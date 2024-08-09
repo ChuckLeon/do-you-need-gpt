@@ -89,15 +89,17 @@ export const Sidebar = () => {
               </p>
             </div>
           )}
-          {user && (
-            <div className="flex flex-col break-all mb-2">
-              <span className="font-bold">
-                {t("sidebar_credits", { count: user?.credits })}
-              </span>
-              <span className="text-xs">{user.email}</span>
-            </div>
-          )}
-          <LoginBtn />
+          <div className="flex flex-col w-full">
+            {user && (
+              <div className="flex flex-col break-all mb-2">
+                <span className="font-bold">
+                  {t("sidebar_credits", { count: user?.credits })}
+                </span>
+                <span className="text-xs">{user.email}</span>
+              </div>
+            )}
+            <LoginBtn />
+          </div>
         </div>
       </div>
     </>

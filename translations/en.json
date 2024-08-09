@@ -2,6 +2,7 @@
   "home_title": "Do you need GPT?",
   "home_subtitle": "Let's find out!",
   "searchbar_placeholder": "Try sending a prompt!",
+  "searchbar_button": "Search",
   "sidebar_title": "History",
   "login_title": "Login",
   "login_email": "Email",
@@ -11,5 +12,6 @@
   "page_not_found": "The page your trying to reach does not exist",
   "return_text": "Return",
   "sidebar_no_search": "Search history will display here",
-  "sidebar_credits": "AI credits: {count}"
+  "sidebar_credits": "AI credits: {count}",
+  "generate_ai_btn": "Generate image with AI?"
 }

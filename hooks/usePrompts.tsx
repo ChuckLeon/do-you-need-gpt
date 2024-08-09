@@ -46,20 +46,6 @@ export const usePrompts = () => {
       if (response.ok) {
         const data = await response.json();
 
-        const openAi: IImage = {
-          src: data.openAi,
-          href: data.openAi,
-          platform: {
-            name: "OpenAI",
-            url: "openai.com",
-            svg: <OpenAiIcon />,
-          },
-          creator: {
-            name: "AI generated",
-            url: "",
-          },
-        };
-
         const unsplash: IImage[] = data.unsplash.map((d: any) => {
           return {
             src: d.urls.regular,
@@ -114,7 +100,6 @@ export const usePrompts = () => {
           const newUUID = crypto.randomUUID();
           const previousSearch = searches;
 
-          setOpenAiImage(openAi);
           setImages([...unsplash, ...pexels, ...pixabay]);
 
           setSearches([
@@ -162,6 +147,39 @@ export const usePrompts = () => {
     await fetchImages(null, pageToFetch, false);
   };
 
+  const fetchAiImage = async (text?: string | null) => {
+    const searchText =
+      text !== null && text !== undefined && text !== ""
+        ? text
+        : searches.find((search) => search.id === selectedSearch)?.searchText ??
+          "";
+
+    const response = await fetch(
+      `/api/images/ai?prompt=${encodeURIComponent(searchText)}`
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+
+      const openAi: IImage = {
+        src: data.url,
+        href: data.url,
+        platform: {
+          name: "OpenAI",
+          url: "openai.com",
+          svg: <OpenAiIcon />,
+        },
+        creator: {
+          name: "AI generated",
+          url: "",
+        },
+      };
+      setOpenAiImage(openAi);
+    } else {
+      throw new Error("Failed to fetch AI image");
+    }
+  };
+
   return {
     promptRef,
     openAiImage,
@@ -174,5 +192,6 @@ export const usePrompts = () => {
     setImages,
     setSelectedSearch,
     fetchNewSearch,
+    fetchAiImage,
   };
 };

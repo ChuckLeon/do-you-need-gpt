@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { fetchPexels } from "@/controllers/pexels";
 import { fetchPixabay } from "@/controllers/pixabay";
 import { fetchUnsplash } from "@/controllers/unsplash";
-import { fetchOpenAi } from "@/controllers/openAi";
 
 export async function GET(request: Request) {
   try {
@@ -17,14 +16,11 @@ export async function GET(request: Request) {
     const formatedPage = Array.isArray(page) ? "1" : page ?? "1";
 
     // TODO: change to promise.all
-    const openAiUrl = "";
-    //Number(formatedPage) === 1 ? await fetchOpenAi(formatedPrompt) : "";
     const unsplashImages = await fetchUnsplash(formatedPrompt, formatedPage);
     const pexelsImages = await fetchPexels(formatedPrompt, formatedPage);
     const pixabayImages = await fetchPixabay(formatedPrompt, formatedPage);
 
     return NextResponse.json({
-      openAi: openAiUrl,
       unsplash: unsplashImages,
       pexels: pexelsImages,
       pixabay: pixabayImages,
