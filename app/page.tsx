@@ -12,6 +12,8 @@ import { NeedAiIcon } from "@/components/icons/NeedAiIcon";
 import { useTranslations } from "next-intl";
 import clsx from "clsx";
 import { useAuth } from "@/hooks/useAuth";
+import { useEffect } from "react";
+import { userStore } from "@/store/userStore";
 
 export default function Home() {
   const t = useTranslations();
@@ -25,7 +27,15 @@ export default function Home() {
     fetchNewSearch,
     loadMore,
   } = usePrompts();
-  useAuth();
+  const { getUser } = useAuth();
+
+  const { user } = userStore();
+
+  useEffect(() => {
+    if (!user) {
+      getUser();
+    }
+  }, [getUser, user]);
 
   return (
     <main className="flex h-[100dvh]">
