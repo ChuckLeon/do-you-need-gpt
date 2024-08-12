@@ -20,10 +20,10 @@ export async function login(formData: FormData) {
   if (error) {
     // TODO: change to display error message in form
     console.error(error);
+  } else {
+    revalidatePath("/", "layout");
+    redirect("/");
   }
-
-  revalidatePath("/", "layout");
-  redirect("/");
 }
 
 export async function signup(formData: FormData) {
@@ -39,8 +39,8 @@ export async function signup(formData: FormData) {
   if (error) {
     // TODO: change to display error message in form
     console.error(error);
+  } else {
+    revalidatePath("/", "layout");
+    redirect("/");
   }
-
-  revalidatePath("/", "layout");
-  redirect("/");
 }

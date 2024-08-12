@@ -5,6 +5,7 @@ import { PexelsIcon } from "@/components/icons/PexelsIcon";
 import { PixabayIcon } from "@/components/icons/PixabayIcon";
 import { UnsplashIcon } from "@/components/icons/UnsplashIcon";
 import { searchStore } from "@/store/searchStore";
+import { Bounce, toast } from "react-toastify";
 
 export const usePrompts = () => {
   const promptRef = useRef<HTMLInputElement>(null);
@@ -12,6 +13,8 @@ export const usePrompts = () => {
   const [openAiImage, setOpenAiImage] = useState<IImage | null>();
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [isFetchingNewSearch, setIsFetchingNewSearch] =
+    useState<boolean>(false);
+  const [isGeneratingAiImage, setIsGeneratingAiImage] =
     useState<boolean>(false);
 
   const {
@@ -119,10 +122,10 @@ export const usePrompts = () => {
 
         if (promptRef.current) promptRef.current.value = "";
       } else {
-        throw new Error("Failed to fetch images");
+        throw new Error();
       }
     } catch (error) {
-      console.error("Error:", error);
+      toast.error("Failed to fetch images");
     } finally {
       setIsFetching(false);
     }
@@ -148,35 +151,42 @@ export const usePrompts = () => {
   };
 
   const fetchAiImage = async (text?: string | null) => {
-    const searchText =
-      text !== null && text !== undefined && text !== ""
-        ? text
-        : searches.find((search) => search.id === selectedSearch)?.searchText ??
-          "";
+    try {
+      setIsGeneratingAiImage(true);
+      const searchText =
+        text !== null && text !== undefined && text !== ""
+          ? text
+          : searches.find((search) => search.id === selectedSearch)
+              ?.searchText ?? "";
 
-    const response = await fetch(
-      `/api/images/ai?prompt=${encodeURIComponent(searchText)}`
-    );
+      const response = await fetch(
+        `/api/images/ai?prompt=${encodeURIComponent(searchText)}`
+      );
 
-    if (response.ok) {
-      const data = await response.json();
+      if (response.ok) {
+        const data = await response.json();
 
-      const openAi: IImage = {
-        src: data.url,
-        href: data.url,
-        platform: {
-          name: "OpenAI",
-          url: "openai.com",
-          svg: <OpenAiIcon />,
-        },
-        creator: {
-          name: "AI generated",
-          url: "",
-        },
-      };
-      setOpenAiImage(openAi);
-    } else {
-      throw new Error("Failed to fetch AI image");
+        const openAi: IImage = {
+          src: data.url,
+          href: data.url,
+          platform: {
+            name: "OpenAI",
+            url: "openai.com",
+            svg: <OpenAiIcon />,
+          },
+          creator: {
+            name: "AI generated",
+            url: "",
+          },
+        };
+        setOpenAiImage(openAi);
+      } else {
+        throw new Error();
+      }
+    } catch (error) {
+      toast.error("Failed to fetch AI image");
+    } finally {
+      setIsGeneratingAiImage(false);
     }
   };
 
@@ -188,6 +198,7 @@ export const usePrompts = () => {
     currentPage,
     searches,
     isFetchingNewSearch,
+    isGeneratingAiImage,
     loadMore,
     setImages,
     setSelectedSearch,

@@ -7,7 +7,6 @@ import { usePrompts } from "@/hooks/usePrompts";
 import Masonry from "react-masonry-css";
 import { Waypoint } from "react-waypoint";
 import { Sidebar } from "@/components/sidebar/Sidebar";
-import { SearchIcon } from "@/components/icons/SearchIcon";
 import { NeedAiIcon } from "@/components/icons/NeedAiIcon";
 import { useTranslations } from "next-intl";
 import clsx from "clsx";
@@ -24,6 +23,7 @@ export default function Home() {
     isFetching,
     currentPage,
     isFetchingNewSearch,
+    isGeneratingAiImage,
     fetchNewSearch,
     loadMore,
     fetchAiImage,
@@ -139,10 +139,14 @@ export default function Home() {
         </div>
         {images.length > 0 && user && (
           <button
-            className="absolute bottom-24 left-[50%] translate-x-[-50%] btn btn-info btn-sm shadow-2xl"
+            className="fixed bottom-24 left-[50%] btn btn-primary btn-sm shadow-2xl min-w-56"
             onClick={() => fetchAiImage(promptRef.current?.value ?? null)}
           >
-            {t("generate_ai_btn")}
+            {isGeneratingAiImage ? (
+              <span className="loading loading-spinner"></span>
+            ) : (
+              t("generate_ai_btn")
+            )}
           </button>
         )}
       </div>
