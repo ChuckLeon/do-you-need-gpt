@@ -8,6 +8,8 @@ import { createClient } from "@/utils/supabase/server";
 export async function login(formData: FormData) {
   const supabase = createClient();
 
+  // TODO: validate input with yup
+
   // type-casting here for convenience
   // in practice, you should validate your inputs
   const data = {
@@ -18,8 +20,7 @@ export async function login(formData: FormData) {
   const { error } = await supabase.auth.signInWithPassword(data);
 
   if (error) {
-    // TODO: change to display error message in form
-    console.error(error);
+    return error;
   } else {
     revalidatePath("/", "layout");
     redirect("/");
@@ -29,6 +30,8 @@ export async function login(formData: FormData) {
 export async function signup(formData: FormData) {
   const supabase = createClient();
 
+  // TODO: validate input with yup
+
   // type-casting here for convenience
   // in practice, you should validate your inputs
   const { error } = await supabase.auth.signUp({
@@ -37,8 +40,7 @@ export async function signup(formData: FormData) {
   });
 
   if (error) {
-    // TODO: change to display error message in form
-    console.error(error);
+    return error;
   } else {
     revalidatePath("/", "layout");
     redirect("/");

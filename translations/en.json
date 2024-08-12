@@ -1,6 +1,7 @@
 {
   "home_title": "Do you need GPT?",
   "home_subtitle": "Let's find out!",
+  "home_link_title": "Home",
   "searchbar_placeholder": "Try sending a prompt!",
   "searchbar_button": "Search",
   "sidebar_title": "History",
@@ -13,5 +14,8 @@
   "return_text": "Return",
   "sidebar_no_search": "Search history will display here",
   "sidebar_credits": "AI credits: {count}",
-  "generate_ai_btn": "Generate image with AI?"
+  "generate_ai_btn": "Generate image with AI?",
+  "login_password_criterias": "6 characters minimum and must contains letters and digits",
+  "login_general_error": "Email or password is incorect",
+  "signup_general_error": "Email is not valid or password does not respect the criterias"
 }

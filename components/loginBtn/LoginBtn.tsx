@@ -12,14 +12,14 @@ const LoginBtn = () => {
 
   if (user) {
     return (
-      <button className="btn btn-primary" onClick={signOut}>
+      <button className="btn btn-primary btn-sm" onClick={signOut}>
         {t("logout_title")}
       </button>
     );
   }
 
   return (
-    <Link className="btn btn-primary" href={"/login"}>
+    <Link className="btn btn-primary btn-sm" href={"/login"}>
       {t("login_title")}
     </Link>
   );
