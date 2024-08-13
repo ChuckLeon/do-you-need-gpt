@@ -1,9 +1,8 @@
 import { IUser, userStore } from "@/store/userStore";
 import { createClient } from "@/utils/supabase/clients";
 
-export const supabase = createClient();
-
 export const useAuth = () => {
+  const supabase = createClient();
   const { setUser } = userStore();
 
   const getUser = async () => {
@@ -16,7 +15,7 @@ export const useAuth = () => {
         .eq("id", data.user?.id)
         .limit(1);
 
-      if (users) {
+      if (users && users?.length > 0) {
         const formatedUser: IUser = {
           id: users[0].id,
           email: users[0].email,

@@ -102,11 +102,7 @@ export default function Home() {
             </Masonry>
 
             {images.length > 0 && !isFetching && (
-              <Waypoint
-                onEnter={() => {
-                  loadMore();
-                }}
-              />
+              <Waypoint onEnter={loadMore} />
             )}
             {isFetching && (
               <span className="loading loading-spinner loading-lg flex m-auto p-6"></span>
@@ -122,25 +118,28 @@ export default function Home() {
               type="text"
               className="grow"
               placeholder={t("searchbar_placeholder")}
-              autoFocus
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  fetchNewSearch(promptRef.current?.value ?? "");
+                  fetchNewSearch();
                 }
               }}
             />
             <button
               className="btn btn-primary btn-sm "
-              onClick={() => fetchNewSearch(promptRef.current?.value ?? "")}
+              onClick={fetchNewSearch}
             >
-              {t("searchbar_button")}
+              {isFetchingNewSearch ? (
+                <span className="loading loading-spinner"></span>
+              ) : (
+                t("searchbar_button")
+              )}
             </button>
           </label>
         </div>
-        {images.length > 0 && user && (
+        {images.length > 0 && user && user.credits > 0 && (
           <button
             className="fixed bottom-24 left-[50%] btn btn-primary btn-sm shadow-2xl min-w-56"
-            onClick={() => fetchAiImage(promptRef.current?.value ?? null)}
+            onClick={fetchAiImage}
           >
             {isGeneratingAiImage ? (
               <span className="loading loading-spinner"></span>

@@ -17,5 +17,6 @@
   "generate_ai_btn": "Generate image with AI?",
   "login_password_criterias": "6 characters minimum and must contains letters and digits",
   "login_general_error": "Email or password is incorect",
-  "signup_general_error": "Email is not valid or password does not respect the criterias"
+  "signup_general_error": "Email is not valid or password does not respect the criterias",
+  "general_error": "Something wrong happened"
 }

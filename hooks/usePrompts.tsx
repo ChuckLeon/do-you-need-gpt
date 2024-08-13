@@ -5,18 +5,12 @@ import { PexelsIcon } from "@/components/icons/PexelsIcon";
 import { PixabayIcon } from "@/components/icons/PixabayIcon";
 import { UnsplashIcon } from "@/components/icons/UnsplashIcon";
 import { searchStore } from "@/store/searchStore";
-import { Bounce, toast } from "react-toastify";
+import { toast } from "react-toastify";
+import { useUsers } from "./useUsers";
+import { userStore } from "@/store/userStore";
 
 export const usePrompts = () => {
-  const promptRef = useRef<HTMLInputElement>(null);
-
-  const [openAiImage, setOpenAiImage] = useState<IImage | null>();
-  const [isFetching, setIsFetching] = useState<boolean>(false);
-  const [isFetchingNewSearch, setIsFetchingNewSearch] =
-    useState<boolean>(false);
-  const [isGeneratingAiImage, setIsGeneratingAiImage] =
-    useState<boolean>(false);
-
+  const { updateAiCredits } = useUsers();
   const {
     searches,
     selectedSearch,
@@ -27,6 +21,15 @@ export const usePrompts = () => {
     setImages,
     setCurrentPage,
   } = searchStore();
+  const { user } = userStore();
+
+  const promptRef = useRef<HTMLInputElement>(null);
+  const [openAiImage, setOpenAiImage] = useState<IImage | null>();
+  const [isFetching, setIsFetching] = useState<boolean>(false);
+  const [isFetchingNewSearch, setIsFetchingNewSearch] =
+    useState<boolean>(false);
+  const [isGeneratingAiImage, setIsGeneratingAiImage] =
+    useState<boolean>(false);
 
   const fetchImages = async (
     text?: string | null,
@@ -131,7 +134,8 @@ export const usePrompts = () => {
     }
   };
 
-  const fetchNewSearch = async (text: string) => {
+  const fetchNewSearch = async () => {
+    const text = promptRef.current?.value ?? "";
     setCurrentPage(1);
     setIsFetchingNewSearch(true);
 
@@ -150,12 +154,16 @@ export const usePrompts = () => {
     await fetchImages(null, pageToFetch, false);
   };
 
-  const fetchAiImage = async (text?: string | null) => {
+  const fetchAiImage = async () => {
+    if (user && user.credits <= 0) return;
+
     try {
       setIsGeneratingAiImage(true);
       const searchText =
-        text !== null && text !== undefined && text !== ""
-          ? text
+        promptRef.current?.value !== null &&
+        promptRef.current?.value !== undefined &&
+        promptRef.current?.value !== ""
+          ? promptRef.current?.value
           : searches.find((search) => search.id === selectedSearch)
               ?.searchText ?? "";
 
@@ -180,6 +188,7 @@ export const usePrompts = () => {
           },
         };
         setOpenAiImage(openAi);
+        updateAiCredits();
       } else {
         throw new Error();
       }

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { fetchOpenAi } from "@/controllers/openAi";
 
 export async function GET(request: Request) {
+  // add user credits validation
   try {
     const { searchParams } = new URL(request.url);
     const prompt = searchParams.get("prompt");

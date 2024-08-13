@@ -15,10 +15,11 @@ export async function GET(request: Request) {
 
     const formatedPage = Array.isArray(page) ? "1" : page ?? "1";
 
-    // TODO: change to promise.all
-    const unsplashImages = await fetchUnsplash(formatedPrompt, formatedPage);
-    const pexelsImages = await fetchPexels(formatedPrompt, formatedPage);
-    const pixabayImages = await fetchPixabay(formatedPrompt, formatedPage);
+    const [unsplashImages, pexelsImages, pixabayImages] = await Promise.all([
+      fetchUnsplash(formatedPrompt, formatedPage),
+      fetchPexels(formatedPrompt, formatedPage),
+      fetchPixabay(formatedPrompt, formatedPage),
+    ]);
 
     return NextResponse.json({
       unsplash: unsplashImages,
