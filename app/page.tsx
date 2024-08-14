@@ -3,7 +3,7 @@
 import ImageCard from "@/components/image/ImageCard";
 import { OpenAiIcon } from "../components/icons/OpenAiIcon";
 import { SkeletonGrid } from "../components/skeleton/SkeletonGrid";
-import { usePrompts } from "@/hooks/usePrompts";
+import { useSearch } from "@/hooks/useSearch";
 import Masonry from "react-masonry-css";
 import { Waypoint } from "react-waypoint";
 import { Sidebar } from "@/components/sidebar/Sidebar";
@@ -18,6 +18,7 @@ export default function Home() {
   const t = useTranslations();
   const {
     promptRef,
+    searchContainerRef,
     openAiImage,
     images,
     isFetching,
@@ -27,7 +28,7 @@ export default function Home() {
     fetchNewSearch,
     loadMore,
     fetchAiImage,
-  } = usePrompts();
+  } = useSearch();
   const { getUser } = useAuth();
 
   const { user } = userStore();
@@ -43,7 +44,10 @@ export default function Home() {
       <Sidebar />
 
       <div className="relative flex flex-col w-full overflow-hidden">
-        <div className="flex flex-col items-center w-full h-full max-h-full p-4 pb-24 overflow-y-auto no-scrollbar md:p-8 md:pb-32">
+        <div
+          className="flex flex-col items-center w-full h-full max-h-full p-4 pb-24 overflow-y-auto no-scrollbar md:p-8 md:pb-32"
+          ref={searchContainerRef}
+        >
           {images.length === 0 && !isFetching && (
             <div className="m-auto text-center">
               <NeedAiIcon className="m-auto w-[100px] h-[100px]" />

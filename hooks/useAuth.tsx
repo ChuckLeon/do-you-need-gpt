@@ -1,8 +1,11 @@
 import { IUser, userStore } from "@/store/userStore";
-import { createClient } from "@/utils/supabase/clients";
+import { createClient } from "@/utilities/supabase/clients";
+import { useTranslations } from "next-intl";
+import { toast } from "react-toastify";
 
 export const useAuth = () => {
   const supabase = createClient();
+  const t = useTranslations();
   const { setUser } = userStore();
 
   const getUser = async () => {
@@ -14,6 +17,11 @@ export const useAuth = () => {
         .select("*")
         .eq("id", data.user?.id)
         .limit(1);
+
+      if (error) {
+        toast.error(t("general_error"));
+        return;
+      }
 
       if (users && users?.length > 0) {
         const formatedUser: IUser = {

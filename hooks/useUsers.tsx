@@ -1,5 +1,5 @@
 import { userStore } from "@/store/userStore";
-import { createClient } from "@/utils/supabase/clients";
+import { createClient } from "@/utilities/supabase/clients";
 import { useTranslations } from "next-intl";
 import { toast } from "react-toastify";
 

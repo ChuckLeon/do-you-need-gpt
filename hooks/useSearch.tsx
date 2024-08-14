@@ -8,8 +8,11 @@ import { searchStore } from "@/store/searchStore";
 import { toast } from "react-toastify";
 import { useUsers } from "./useUsers";
 import { userStore } from "@/store/userStore";
+import { createClient } from "@/utilities/supabase/clients";
+import { elementScrollToTop } from "@/utilities/scroll";
 
-export const usePrompts = () => {
+export const useSearch = () => {
+  const supabase = createClient();
   const { updateAiCredits } = useUsers();
   const {
     searches,
@@ -24,6 +27,7 @@ export const usePrompts = () => {
   const { user } = userStore();
 
   const promptRef = useRef<HTMLInputElement>(null);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
   const [openAiImage, setOpenAiImage] = useState<IImage | null>();
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [isFetchingNewSearch, setIsFetchingNewSearch] =
@@ -140,10 +144,8 @@ export const usePrompts = () => {
     setIsFetchingNewSearch(true);
 
     await fetchImages(text, 1, true);
-    if (typeof window !== "undefined") {
-      window.scrollTo({ top: 0, behavior: "instant" });
-    }
 
+    elementScrollToTop(searchContainerRef.current);
     setIsFetchingNewSearch(false);
   };
 
@@ -201,6 +203,7 @@ export const usePrompts = () => {
 
   return {
     promptRef,
+    searchContainerRef,
     openAiImage,
     images,
     isFetching,

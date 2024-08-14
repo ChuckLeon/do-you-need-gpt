@@ -8,7 +8,7 @@ import { NeedAiIcon } from "../icons/NeedAiIcon";
 import { useTranslations } from "next-intl";
 import LoginBtn from "../loginBtn/LoginBtn";
 import { PanelIcon } from "../icons/PanelIcon";
-import { MOBILE_BREAKPOINT } from "@/utils/constants";
+import { MOBILE_BREAKPOINT } from "@/utilities/constants";
 import useResize from "@/hooks/useResize";
 
 import "./sidebar.scss";
