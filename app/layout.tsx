@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     url: "https://doyouneedgpt.com",
     images: [
       {
-        url: "/public/og-image.png",
+        url: "/og-image.png",
       },
     ],
   },
