@@ -13,20 +13,26 @@ import useResize from "@/hooks/useResize";
 
 import "./sidebar.scss";
 import { userStore } from "@/store/userStore";
+import { createClient } from "@/utilities/supabase/clients";
+import { toast } from "react-toastify";
 
 export const Sidebar = () => {
   const t = useTranslations();
   const { width } = useResize();
+  const { user } = userStore();
+  const supabase = createClient();
 
   const {
     searches,
+    setSearches,
     setImages,
     selectedSearch,
     setSelectedSearch,
     setCurrentPage,
   } = searchStore();
 
-  const { user } = userStore();
+  const isMobile = useMemo(() => width < MOBILE_BREAKPOINT, [width]);
+  const [sidebarIsOpen, setSidebarIsOpen] = useState<boolean>(!isMobile);
 
   const onSidebarItemClick = (search: ISearch) => {
     setCurrentPage(1);
@@ -34,12 +40,35 @@ export const Sidebar = () => {
     setSelectedSearch(search.id);
   };
 
-  const isMobile = useMemo(() => width < MOBILE_BREAKPOINT, [width]);
-  const [sidebarIsOpen, setSidebarIsOpen] = useState<boolean>(!isMobile);
-
   useEffect(() => {
     setSidebarIsOpen(!isMobile);
   }, [isMobile]);
+
+  useEffect(() => {
+    const fetchSearches = async () => {
+      const { data: searches, error } = await supabase
+        .from("searches")
+        .select("id,search_text,results")
+        .eq("user_id", user?.id)
+        .order("created_at");
+
+      if (error) {
+        toast.error(t("general_error"));
+      }
+
+      if (searches) {
+        const mappedSearches: ISearch[] = searches.map((search) => ({
+          id: search.id,
+          searchText: search.search_text,
+          results: search.results,
+        }));
+
+        setSearches(mappedSearches);
+      }
+    };
+
+    if (user) fetchSearches();
+  }, [setSearches, supabase, t, user]);
 
   return (
     <>

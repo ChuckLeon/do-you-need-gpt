@@ -1,4 +1,9 @@
-import React, { ReactNode } from "react";
+import { UnsplashIcon } from "@/components/icons/UnsplashIcon";
+import { PexelsIcon } from "@/components/icons/PexelsIcon";
+import { PixabayIcon } from "@/components/icons/PixabayIcon";
+import { OpenAiIcon } from "@/components/icons/OpenAiIcon";
+import { ReactNode } from "react";
+import { platformOption } from "@/interfaces/image";
 
 type IImageCard = {
   src: string;
@@ -7,7 +12,7 @@ type IImageCard = {
   platform?: {
     name: string;
     url: string;
-    svg?: ReactNode;
+    svg?: platformOption;
   };
   creator?: {
     name: string;
@@ -22,6 +27,21 @@ export default function ImageCard({
   platform,
   creator,
 }: IImageCard) {
+  const getPlatformSvg = (option: platformOption): ReactNode => {
+    switch (option) {
+      case "unsplash":
+        return <UnsplashIcon />;
+      case "pexels":
+        return <PexelsIcon />;
+      case "pixabay":
+        return <PixabayIcon />;
+      case "openai":
+        return <OpenAiIcon />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="image-card group relative flex flex-col w-full rounded-xl overflow-hidden  hover:cursor-pointer">
       <a href={href} target="_blank" className="w-full h-full">
@@ -37,7 +57,7 @@ export default function ImageCard({
       {platform?.svg && (
         <div className="absolute top-4 left-4 bg-white bg-opacity-30 rounded-full p-3 transition-all hover:bg-opacity-50">
           <a href={platform?.url} target="_blank">
-            {platform.svg}
+            {getPlatformSvg(platform.svg)}
           </a>
         </div>
       )}

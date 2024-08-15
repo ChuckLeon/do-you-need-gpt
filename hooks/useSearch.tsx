@@ -1,18 +1,16 @@
 import { useRef, useState } from "react";
-import { IImage, ISearch } from "@/interfaces/image";
-import { OpenAiIcon } from "@/components/icons/OpenAiIcon";
-import { PexelsIcon } from "@/components/icons/PexelsIcon";
-import { PixabayIcon } from "@/components/icons/PixabayIcon";
-import { UnsplashIcon } from "@/components/icons/UnsplashIcon";
+import { IImage } from "@/interfaces/image";
 import { searchStore } from "@/store/searchStore";
 import { toast } from "react-toastify";
 import { useUsers } from "./useUsers";
 import { userStore } from "@/store/userStore";
 import { createClient } from "@/utilities/supabase/clients";
 import { elementScrollToTop } from "@/utilities/scroll";
+import { useTranslations } from "next-intl";
 
 export const useSearch = () => {
   const supabase = createClient();
+  const t = useTranslations();
   const { updateAiCredits } = useUsers();
   const {
     searches,
@@ -56,6 +54,7 @@ export const useSearch = () => {
       if (response.ok) {
         const data = await response.json();
 
+        // TODO: refac to handle the format in BE
         const unsplash: IImage[] = data.unsplash.map((d: any) => {
           return {
             src: d.urls.regular,
@@ -64,7 +63,7 @@ export const useSearch = () => {
             platform: {
               name: "Unsplash",
               url: "https://www.unsplash.com?utm_source=doyouneedai&utm_medium=referral",
-              svg: <UnsplashIcon />,
+              svg: "unsplash",
             },
             creator: {
               name: d.user.name,
@@ -81,7 +80,7 @@ export const useSearch = () => {
             platform: {
               name: "Pexels",
               url: "https://www.pexels.com",
-              svg: <PexelsIcon />,
+              svg: "pexels",
             },
             creator: {
               name: d.photographer,
@@ -97,7 +96,7 @@ export const useSearch = () => {
             platform: {
               name: "Pixabay",
               url: "https://www.pixabay.com",
-              svg: <PixabayIcon />,
+              svg: "pixabay",
             },
             creator: {
               name: d.user,
@@ -109,19 +108,33 @@ export const useSearch = () => {
         if (isNewSearch) {
           const newUUID = crypto.randomUUID();
           const previousSearch = searches;
+          const results = [...unsplash, ...pexels, ...pixabay];
 
-          setImages([...unsplash, ...pexels, ...pixabay]);
-
+          setImages(results);
           setSearches([
             ...previousSearch,
             {
               id: newUUID,
               searchText: searchText,
-              results: [...unsplash, ...pexels, ...pixabay],
+              results: results,
             },
           ]);
-
           setSelectedSearch(newUUID);
+
+          const { error } = await supabase
+            .from("searches")
+            .insert([
+              {
+                user_id: user?.id,
+                search_text: searchText,
+                results: JSON.parse(JSON.stringify(results)),
+              },
+            ])
+            .select();
+
+          if (error) {
+            toast.error(t("general_error"));
+          }
         } else {
           const previousImages = images;
           setImages([...previousImages, ...unsplash, ...pexels, ...pixabay]);
@@ -170,7 +183,12 @@ export const useSearch = () => {
               ?.searchText ?? "";
 
       const response = await fetch(
-        `/api/images/ai?prompt=${encodeURIComponent(searchText)}`
+        `/api/images/ai?prompt=${encodeURIComponent(searchText)}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user?.id}`,
+          },
+        }
       );
 
       if (response.ok) {
@@ -182,7 +200,7 @@ export const useSearch = () => {
           platform: {
             name: "OpenAI",
             url: "openai.com",
-            svg: <OpenAiIcon />,
+            svg: "openai",
           },
           creator: {
             name: "AI generated",

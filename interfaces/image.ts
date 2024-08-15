@@ -1,6 +1,5 @@
-import { ReactNode } from "react";
-
 export const NB_TO_FETCH = 24;
+export type platformOption = "unsplash" | "pexels" | "pixabay" | "openai";
 
 export interface IImage {
   src: string;
@@ -8,7 +7,7 @@ export interface IImage {
   platform?: {
     name: string;
     url: string;
-    svg?: ReactNode;
+    svg?: platformOption;
   };
   creator?: {
     name: string;
