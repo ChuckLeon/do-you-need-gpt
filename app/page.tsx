@@ -78,7 +78,7 @@ export default function Home() {
                   platform={{
                     name: "OpenAI",
                     url: "openai.com",
-                    svg: <OpenAiIcon />,
+                    svg: "openai",
                   }}
                   creator={{
                     name: openAiImage.creator?.name ?? "",

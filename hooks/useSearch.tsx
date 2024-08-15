@@ -53,57 +53,7 @@ export const useSearch = () => {
       );
       if (response.ok) {
         const data = await response.json();
-
-        // TODO: refac to handle the format in BE
-        const unsplash: IImage[] = data.unsplash.map((d: any) => {
-          return {
-            src: d.urls.regular,
-            href: d.links.html,
-            alt: d.description,
-            platform: {
-              name: "Unsplash",
-              url: "https://www.unsplash.com?utm_source=doyouneedai&utm_medium=referral",
-              svg: "unsplash",
-            },
-            creator: {
-              name: d.user.name,
-              url: d.user.portfolio_url,
-            },
-          };
-        });
-
-        const pexels: IImage[] = data.pexels.map((d: any) => {
-          return {
-            src: d.src.large,
-            href: d.url,
-            alt: d.alt,
-            platform: {
-              name: "Pexels",
-              url: "https://www.pexels.com",
-              svg: "pexels",
-            },
-            creator: {
-              name: d.photographer,
-              url: d.photographer_url,
-            },
-          };
-        });
-
-        const pixabay: IImage[] = data.pixabay.map((d: any) => {
-          return {
-            src: d.webformatURL,
-            href: d.pageURL,
-            platform: {
-              name: "Pixabay",
-              url: "https://www.pixabay.com",
-              svg: "pixabay",
-            },
-            creator: {
-              name: d.user,
-              url: d.pageURL,
-            },
-          };
-        });
+        const { unsplash, pexels, pixabay } = data;
 
         if (isNewSearch) {
           const newUUID = crypto.randomUUID();
@@ -112,12 +62,12 @@ export const useSearch = () => {
 
           setImages(results);
           setSearches([
-            ...previousSearch,
             {
               id: newUUID,
               searchText: searchText,
               results: results,
             },
+            ...previousSearch,
           ]);
           setSelectedSearch(newUUID);
 

@@ -50,7 +50,7 @@ export const Sidebar = () => {
         .from("searches")
         .select("id,search_text,results")
         .eq("user_id", user?.id)
-        .order("created_at");
+        .order("created_at", { ascending: false });
 
       if (error) {
         toast.error(t("general_error"));
