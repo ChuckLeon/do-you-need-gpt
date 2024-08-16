@@ -1,7 +1,6 @@
 "use client";
 
 import ImageCard from "@/components/image/ImageCard";
-import { OpenAiIcon } from "../components/icons/OpenAiIcon";
 import { SkeletonGrid } from "../components/skeleton/SkeletonGrid";
 import { useSearch } from "@/hooks/useSearch";
 import Masonry from "react-masonry-css";

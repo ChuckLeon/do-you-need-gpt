@@ -71,19 +71,21 @@ export const useSearch = () => {
           ]);
           setSelectedSearch(newUUID);
 
-          const { error } = await supabase
-            .from("searches")
-            .insert([
-              {
-                user_id: user?.id,
-                search_text: searchText,
-                results: JSON.parse(JSON.stringify(results)),
-              },
-            ])
-            .select();
+          if (user) {
+            const { error } = await supabase
+              .from("searches")
+              .insert([
+                {
+                  user_id: user?.id,
+                  search_text: searchText,
+                  results: JSON.parse(JSON.stringify(results)),
+                },
+              ])
+              .select();
 
-          if (error) {
-            toast.error(t("general_error"));
+            if (error) {
+              toast.error(t("general_error"));
+            }
           }
         } else {
           const previousImages = images;

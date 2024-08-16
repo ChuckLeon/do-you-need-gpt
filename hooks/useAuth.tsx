@@ -1,3 +1,4 @@
+import { searchStore } from "@/store/searchStore";
 import { IUser, userStore } from "@/store/userStore";
 import { createClient } from "@/utilities/supabase/clients";
 import { useTranslations } from "next-intl";
@@ -7,6 +8,7 @@ export const useAuth = () => {
   const supabase = createClient();
   const t = useTranslations();
   const { setUser } = userStore();
+  const { setSearches } = searchStore();
 
   const getUser = async () => {
     const { data } = await supabase.auth.getUser();
@@ -38,6 +40,7 @@ export const useAuth = () => {
   const signOut = async () => {
     await supabase.auth.signOut();
     setUser(null);
+    setSearches([]);
   };
 
   return { supabase, signOut, getUser };
