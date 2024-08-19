@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Doyouneedgpt.com
 
-## Getting Started
+## Description
 
-First, run the development server:
+Doyouneedgpt.com is a platform designed to encourage users to opt for human-made images from platforms like Unsplash, Pexels, and Pixabay before resorting to AI-generated images.
+The site offers the option to generate AI images if users cannot find what they need.
+To access the AI image generation feature, users must sign up for an account.
+
+## Features
+
+- **Image Search:** Search for high-quality, human-made images from Unsplash, Pexels, and Pixabay.
+- **AI Image Generation:** Generate AI images if desired images are not found on partner platforms.
+- **User Authentication:** Secure signup and login system to access AI image generation.
+- **Responsive** The app is made to be usable on computers and mobile devices
+
+## Roadmap
+
+- **Payments** Loged in users should be able to buy credits to generate AI images
+- **Clean up UI** Need to make overall experience as perfect as possible
+
+## Technologies
+
+- **[Next.js](https://nextjs.org/):** React framework for server-side rendering and static site generation.
+- **[OpenAI API](https://openai.com/api/):** API for generating AI images.
+- **[Tailwind CSS](https://tailwindcss.com/):** Utility-first CSS framework for rapid UI development.
+- **[DaisyUI](https://daisyui.com/):** Tailwind CSS component library for customizable UI components.
+- **[Supabase](https://supabase.com/):** Backend as a service for the database and authentication.
+- **[Zustand](https://zustand-demo.pmnd.rs/):** State management library for React applications.
+
+## Setup
+
+### Prerequisites
+
+- Node.js and npm installed on your machine.
+
+### Installation
+
+1. Clone the repository:
 
 ```bash
+git clone https://github.com/ChuckLeon/do-you-need-gpt.git
+cd do-you-need-gpt
+npm install
+# Would need to get all .env keys needed here
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### How to run the project locally
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+You will need to get API keys from these platforms:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- OpenAI (You need to buy credits to be able to fetch the API)
+- Supabase
+- Unsplash
+- Pexels
+- Pixabay
+- Mailgun
 
-## Learn More
+## Usage
 
-To learn more about Next.js, take a look at the following resources:
+**Search Images**: Use the search functionality to find images from Unsplash, Pexels, and Pixabay.
+**Sign Up**: Create an account to access the AI image generation feature.
+**Generate AI Images**: If you cannot find what you need, use the AI image generation feature.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Contributions are welcome! Please submit a pull request or open an issue for any changes or suggestions.
 
-## Deploy on Vercel
+## Contact
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+For any questions or inquiries, please reach out at charlesheon@gmail.com
