@@ -58,9 +58,9 @@ You will need to get API keys from these platforms:
 
 ## Usage
 
-**Search Images** - Use the search functionality to find images from Unsplash, Pexels, and Pixabay.
-**Sign Up** - Create an account to access the AI image generation feature.
-**Generate AI Images** - If you cannot find what you need, use the AI image generation feature.
+- **Search Images** - Use the search functionality to find images from Unsplash, Pexels, and Pixabay.
+- **Sign Up** - Create an account to access the AI image generation feature.
+- **Generate AI Images** - If you cannot find what you need, use the AI image generation feature.
 
 ## Contributing
 
