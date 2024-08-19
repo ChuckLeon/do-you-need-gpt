@@ -8,15 +8,15 @@ To access the AI image generation feature, users must sign up for an account.
 
 ## Features
 
-- **Image Search:** Search for high-quality, human-made images from Unsplash, Pexels, and Pixabay.
-- **AI Image Generation:** Generate AI images if desired images are not found on partner platforms.
-- **User Authentication:** Secure signup and login system to access AI image generation.
-- **Responsive** The app is made to be usable on computers and mobile devices
+- **Image Search:** - Search for high-quality, human-made images from Unsplash, Pexels, and Pixabay.
+- **AI Image Generation:** - Generate AI images if desired images are not found on partner platforms.
+- **User Authentication:** - Secure signup and login system to access AI image generation.
+- **Responsive** - The app is made to be usable on computers and mobile devices
 
 ## Roadmap
 
-- **Payments** Loged in users should be able to buy credits to generate AI images
-- **Clean up UI** Need to make overall experience as perfect as possible
+- **Payments** - Loged in users should be able to buy credits to generate AI images
+- **Clean up UI** - Need to make overall experience as perfect as possible
 
 ## Technologies
 
@@ -58,9 +58,9 @@ You will need to get API keys from these platforms:
 
 ## Usage
 
-**Search Images**: Use the search functionality to find images from Unsplash, Pexels, and Pixabay.
-**Sign Up**: Create an account to access the AI image generation feature.
-**Generate AI Images**: If you cannot find what you need, use the AI image generation feature.
+**Search Images** - Use the search functionality to find images from Unsplash, Pexels, and Pixabay.
+**Sign Up** - Create an account to access the AI image generation feature.
+**Generate AI Images** - If you cannot find what you need, use the AI image generation feature.
 
 ## Contributing
 
