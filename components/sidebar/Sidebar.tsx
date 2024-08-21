@@ -4,9 +4,7 @@ import { ISearch } from "@/interfaces/image";
 import { searchStore } from "@/store/searchStore";
 import clsx from "clsx";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { NeedAiIcon } from "../icons/NeedAiIcon";
 import { useTranslations } from "next-intl";
-import LoginBtn from "../loginBtn/LoginBtn";
 import { PanelIcon } from "../icons/PanelIcon";
 import { MOBILE_BREAKPOINT } from "@/utilities/constants";
 import useResize from "@/hooks/useResize";
@@ -16,6 +14,10 @@ import { userStore } from "@/store/userStore";
 import { createClient } from "@/utilities/supabase/clients";
 import { toast } from "react-toastify";
 import { useClickOutside } from "@/hooks/useClickOutside";
+import { SidebarNoResults } from "./SidebarNoResults";
+import { SidebarFooter } from "./SidebarFooter";
+import { SidebarHeader } from "./SidebarHeader";
+import { SidebarSearch } from "./SidebarSearch";
 
 export const Sidebar = () => {
   const t = useTranslations();
@@ -23,14 +25,7 @@ export const Sidebar = () => {
   const { user } = userStore();
   const supabase = createClient();
 
-  const {
-    searches,
-    setSearches,
-    setImages,
-    selectedSearch,
-    setSelectedSearch,
-    setCurrentPage,
-  } = searchStore();
+  const { searches, setSearches } = searchStore();
 
   const isMobile = useMemo(() => width < MOBILE_BREAKPOINT, [width]);
   const [sidebarIsClosed, setSidebarIsClosed] = useState<boolean>(isMobile);
@@ -38,14 +33,6 @@ export const Sidebar = () => {
   useClickOutside(ref, () => {
     if (!sidebarIsClosed && isMobile) setSidebarIsClosed(true);
   });
-
-  const onSidebarItemClick = (search: ISearch) => {
-    setCurrentPage(1);
-    setImages(search.results);
-    setSelectedSearch(search.id);
-
-    if (isMobile) setSidebarIsClosed(true);
-  };
 
   useEffect(() => {
     setSidebarIsClosed(isMobile);
@@ -89,56 +76,22 @@ export const Sidebar = () => {
         className={clsx("sidebar-background", { hide: sidebarIsClosed })}
       ></div>
       <div className={clsx("sidebar", { closed: sidebarIsClosed })} ref={ref}>
-        <div className="flex justify-between">
-          <div className="flex items-center">
-            <NeedAiIcon />
-            <h2>{t("sidebar_title")}</h2>
-          </div>
-          <button
-            className="p-1 btn btn-sm btn-circle"
-            onClick={() => setSidebarIsClosed((prev) => !prev)}
-          >
-            <PanelIcon />
-          </button>
-        </div>
+        <SidebarHeader setSidebarIsClosed={setSidebarIsClosed} />
+
         <div className="flex flex-col justify-between h-full">
           <div className="flex flex-col gap-2">
             {searches.map((search, i) => (
-              <button
+              <SidebarSearch
                 key={`history-${i}`}
-                className={clsx(
-                  "btn btn-sm btn-ghost relative w-full justify-start text-left overflow-hidden whitespace-nowrap",
-                  { "btn-active": search.id === selectedSearch }
-                )}
-                onClick={() => onSidebarItemClick(search)}
-              >
-                {search.searchText}
-                <div
-                  className={clsx("absolute top-0 right-0 w-8 h-full", {
-                    "custom-gradient": search.id === selectedSearch,
-                  })}
-                ></div>
-              </button>
+                search={search}
+                setSidebarIsClosed={setSidebarIsClosed}
+                isMobile={isMobile}
+              />
             ))}
           </div>
-          {searches.length === 0 && (
-            <div className="flex flex-col h-full">
-              <p className="m-auto text-xs text-center">
-                {t("sidebar_no_search")}
-              </p>
-            </div>
-          )}
-          <div className="flex flex-col w-full">
-            {user && (
-              <div className="flex flex-col break-all mb-2">
-                <span className="font-bold">
-                  {t("sidebar_credits", { count: user?.credits })}
-                </span>
-                <span className="text-xs">{user.email}</span>
-              </div>
-            )}
-            <LoginBtn />
-          </div>
+
+          {searches.length === 0 && <SidebarNoResults />}
+          <SidebarFooter />
         </div>
       </div>
     </>
