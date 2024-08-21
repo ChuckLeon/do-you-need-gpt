@@ -43,6 +43,8 @@ export const Sidebar = () => {
     setCurrentPage(1);
     setImages(search.results);
     setSelectedSearch(search.id);
+
+    if (isMobile) setSidebarIsClosed(true);
   };
 
   useEffect(() => {

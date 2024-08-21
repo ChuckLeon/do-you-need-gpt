@@ -11,7 +11,7 @@
   padding: 1rem;
   flex-direction: column;
   opacity: 1;
-  transition: all 150ms ease-in-out;
+  transition: all 200ms ease-in-out;
   transform-origin: left;
   z-index: 9999;
 
@@ -22,6 +22,10 @@
     opacity: 0;
     width: 0%;
     min-width: 0;
+
+    > * {
+      opacity: 0;
+    }
   }
 
   @include md {
@@ -54,8 +58,8 @@
   }
 
   @include md {
-    top: 2.5rem;
-    left: 2.5rem;
+    top: 2rem;
+    left: 2rem;
   }
 }
 
