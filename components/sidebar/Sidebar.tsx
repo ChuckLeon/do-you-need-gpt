@@ -78,7 +78,7 @@ export const Sidebar = () => {
       <div className={clsx("sidebar", { closed: sidebarIsClosed })} ref={ref}>
         <SidebarHeader setSidebarIsClosed={setSidebarIsClosed} />
 
-        <div className="flex flex-col justify-between h-full">
+        <div className="flex flex-col justify-between h-full overflow-y-scroll">
           <div className="flex flex-col gap-2">
             {searches.map((search, i) => (
               <SidebarSearch

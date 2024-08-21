@@ -31,7 +31,7 @@
   @include md {
     position: static;
     width: 20%;
-    height: auto;
+    height: calc(100% - 4rem);
     min-width: 12rem;
     margin: 2rem;
     margin-right: 0;
