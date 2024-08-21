@@ -3,7 +3,7 @@
 import { ISearch } from "@/interfaces/image";
 import { searchStore } from "@/store/searchStore";
 import clsx from "clsx";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { NeedAiIcon } from "../icons/NeedAiIcon";
 import { useTranslations } from "next-intl";
 import LoginBtn from "../loginBtn/LoginBtn";
@@ -15,6 +15,7 @@ import "./sidebar.scss";
 import { userStore } from "@/store/userStore";
 import { createClient } from "@/utilities/supabase/clients";
 import { toast } from "react-toastify";
+import { useClickOutside } from "@/hooks/useClickOutside";
 
 export const Sidebar = () => {
   const t = useTranslations();
@@ -32,7 +33,11 @@ export const Sidebar = () => {
   } = searchStore();
 
   const isMobile = useMemo(() => width < MOBILE_BREAKPOINT, [width]);
-  const [sidebarIsOpen, setSidebarIsOpen] = useState<boolean>(!isMobile);
+  const [sidebarIsClosed, setSidebarIsClosed] = useState<boolean>(isMobile);
+  const ref = useRef<HTMLDivElement>(null);
+  useClickOutside(ref, () => {
+    if (!sidebarIsClosed && isMobile) setSidebarIsClosed(true);
+  });
 
   const onSidebarItemClick = (search: ISearch) => {
     setCurrentPage(1);
@@ -41,7 +46,7 @@ export const Sidebar = () => {
   };
 
   useEffect(() => {
-    setSidebarIsOpen(!isMobile);
+    setSidebarIsClosed(isMobile);
   }, [isMobile]);
 
   useEffect(() => {
@@ -73,12 +78,15 @@ export const Sidebar = () => {
   return (
     <>
       <button
-        className={clsx("sidebar-btn", { hide: sidebarIsOpen })}
-        onClick={() => setSidebarIsOpen((prev) => !prev)}
+        className={clsx("sidebar-btn", { hide: !sidebarIsClosed })}
+        onClick={() => setSidebarIsClosed((prev) => !prev)}
       >
         <PanelIcon />
       </button>
-      <div className={clsx("sidebar", { open: sidebarIsOpen })}>
+      <div
+        className={clsx("sidebar-background", { hide: sidebarIsClosed })}
+      ></div>
+      <div className={clsx("sidebar", { closed: sidebarIsClosed })} ref={ref}>
         <div className="flex justify-between">
           <div className="flex items-center">
             <NeedAiIcon />
@@ -86,7 +94,7 @@ export const Sidebar = () => {
           </div>
           <button
             className="p-1 btn btn-sm btn-circle"
-            onClick={() => setSidebarIsOpen((prev) => !prev)}
+            onClick={() => setSidebarIsClosed((prev) => !prev)}
           >
             <PanelIcon />
           </button>
