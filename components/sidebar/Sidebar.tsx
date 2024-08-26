@@ -1,5 +1,6 @@
 "use client";
 
+import "./sidebar.scss";
 import { ISearch } from "@/interfaces/image";
 import { searchStore } from "@/store/searchStore";
 import clsx from "clsx";
@@ -8,8 +9,6 @@ import { useTranslations } from "next-intl";
 import { PanelIcon } from "../icons/PanelIcon";
 import { MOBILE_BREAKPOINT } from "@/utilities/constants";
 import useResize from "@/hooks/useResize";
-
-import "./sidebar.scss";
 import { userStore } from "@/store/userStore";
 import { createClient } from "@/utilities/supabase/clients";
 import { toast } from "react-toastify";
@@ -91,8 +90,8 @@ export const Sidebar = () => {
           </div>
 
           {searches.length === 0 && <SidebarNoResults />}
-          <SidebarFooter />
         </div>
+        <SidebarFooter />
       </div>
     </>
   );
