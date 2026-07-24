@@ -1,71 +1,70 @@
-# Doyouneedgpt.com
+# Do You Need GPT?
 
-## Description
-
-Doyouneedgpt.com is a platform designed to encourage users to opt for human-made images from platforms like Unsplash, Pexels, and Pixabay before resorting to AI-generated images.
-The site offers the option to generate AI images if users cannot find what they need.
-To access the AI image generation feature, users must sign up for an account.
+Doyouneedgpt.com encourages users to choose human-made images from Unsplash, Pexels, and Pixabay before generating an AI image. AI image generation is available as a fallback for signed-up users.
 
 ## Features
 
-- **Image Search:** - Search for high-quality, human-made images from Unsplash, Pexels, and Pixabay.
-- **AI Image Generation:** - Generate AI images if desired images are not found on partner platforms.
-- **User Authentication:** - Secure signup and login system to access AI image generation.
-- **Responsive** - The app is made to be usable on computers and mobile devices
+- Search human-made images across Unsplash, Pexels, and Pixabay
+- Generate an AI image with OpenAI when nothing else fits
+- Account signup and login via Supabase, with credits gating AI generation
+- Responsive layout for desktop and mobile
 
-## Roadmap
+## Tech Stack
 
-- **Payments** - Loged in users should be able to buy credits to generate AI images
-- **Clean up UI** - Need to make overall experience as perfect as possible
+- Next.js (App Router) and TypeScript
+- Tailwind CSS with DaisyUI
+- Zustand for state management
+- Supabase for auth and database
+- OpenAI API for AI image generation
 
-## Technologies
-
-- **[Next.js](https://nextjs.org/):** React framework for server-side rendering and static site generation.
-- **[OpenAI API](https://openai.com/api/):** API for generating AI images.
-- **[Tailwind CSS](https://tailwindcss.com/):** Utility-first CSS framework for rapid UI development.
-- **[DaisyUI](https://daisyui.com/):** Tailwind CSS component library for customizable UI components.
-- **[Supabase](https://supabase.com/):** Backend as a service for the database and authentication.
-- **[Zustand](https://zustand-demo.pmnd.rs/):** State management library for React applications.
-
-## Setup
+## Getting Started
 
 ### Prerequisites
 
-- Node.js and npm installed on your machine.
+- Node.js and npm
 
 ### Installation
-
-1. Clone the repository:
 
 ```bash
 git clone https://github.com/ChuckLeon/do-you-need-gpt.git
 cd do-you-need-gpt
 npm install
-# Would need to get all .env keys needed here
+```
+
+Create a `.env.local` file with the following keys:
+
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `OPENAI_API_KEY`
+- `UNSPLASH_ACCESS_KEY`
+- Pexels API key
+- Pixabay API key
+- Mailgun API key
+
+Then start the dev server:
+
+```bash
 npm run dev
 ```
 
-### How to run the project locally
+The app runs at `http://localhost:3000`.
 
-You will need to get API keys from these platforms:
+## Scripts
 
-- OpenAI (You need to buy credits to be able to fetch the API)
-- Supabase
-- Unsplash
-- Pexels
-- Pixabay
-- Mailgun
+- `npm run dev` - start the development server
+- `npm run build` - build for production
+- `npm run start` - run the production build
+- `npm run lint` - lint the codebase
 
-## Usage
+## Roadmap
 
-- **Search Images** - Use the search functionality to find images from Unsplash, Pexels, and Pixabay.
-- **Sign Up** - Create an account to access the AI image generation feature.
-- **Generate AI Images** - If you cannot find what you need, use the AI image generation feature.
+- Payments so signed-in users can buy AI generation credits
+- General UI cleanup
 
 ## Contributing
 
-Contributions are welcome! Please submit a pull request or open an issue for any changes or suggestions.
+Contributions are welcome. Please open an issue or submit a pull request.
 
 ## Contact
 
-For any questions or inquiries, please reach out at charlesheon@gmail.com
+charlesheon@gmail.com
