@@ -1,5 +1,5 @@
 import { userStore } from "@/store/userStore";
-import LoginBtn from "../loginBtn/LoginBtn";
+// import LoginBtn from "../loginBtn/LoginBtn";
 import { useTranslations } from "next-intl";
 
 export const SidebarFooter = () => {
@@ -16,7 +16,8 @@ export const SidebarFooter = () => {
           <span className="text-xs">{user.email}</span>
         </div>
       )}
-      <LoginBtn />
+      {/* TODO: re-enable once Supabase auth is migrated, currently broken */}
+      {/* <LoginBtn /> */}
     </div>
   );
 };
